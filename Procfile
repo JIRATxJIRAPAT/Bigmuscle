@@ -1,0 +1,1 @@
+web: gunicorn takeitboii.wsgi
