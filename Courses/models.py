@@ -6,7 +6,7 @@ class Course(models.Model):
     course_id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length = 500)
     info = models.CharField(max_length = 500)
-    teach = models.ManyToManyField('Users.Trainer' ,related_name="teacher",null = False,blank = False)
+    teach = models.ManyToManyField('Users.Trainer' ,related_name="teacher",blank = False)
     
     def __str__(self):
         return f"{self.name} "
