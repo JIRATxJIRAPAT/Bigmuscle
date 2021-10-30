@@ -5,9 +5,69 @@
 	<title>Body Test</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #7abecc !important;
+		}
+		.user_card {
+			width: 350px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background:#fdfdfd;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+
+		.form_container {
+			margin-top: 20px;
+		}
+
+		#form-title{
+			color: rgb(8, 8, 8);
+		}
+		
+		.input-group-text {
+			background: #f7ba5b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+
+			
+			
+	</style>
+		
+
 </head>
 
-<body>
+
+
+
+
+  <body>
+
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
@@ -15,27 +75,31 @@
 					<h3 id="form-title">BODY TEST</h3>
 				</div>
 				<div class="d-flex justify-content-center form_container">
-					<div class="d-flex justify-content-center links">
-						<a>{{bmi}}</a>
-					</div>
 					<h1></h1>
 					<form method="POST" action="">
 						{% csrf_token %}
 						<div >
 							<label for="bmi">Enter your weight and height:</label>
 									<br><br>
-  										<input type="text" id="user_weight" name="weight" pattern="[0-9]{1,8}" placeholder="enter your weight in kg"><br><br>
-  									<br><br>
-									  <input type="text" id="user_height" name="height" pattern="[0-9]{1,8}" placeholder="enter your height in cm"><br><br>
-  								<input type="submit" value="submit">
-						</div>
-						<div class="d-flex justify-content-center links">
-							result: {{ result }}
-						</div>
-						<div class="d-flex justify-content-center links">
-							wanna go home? <a href="{% url 'home:index' %}" class="ml-2">Click here</a>
-							want to see our course? <a href="{% url 'Users:register' %}" class="ml-2">Click here</a>
-						</div>
+										<input class="form-control" type="text" id="user_weight" name="weight" pattern="[0-9]{1,8}" placeholder="enter your weight in kg">
+  										
+  									<br>
+									  <input class="form-control" type="text" id="user_height"pattern="[0-9]{1,8}" name="height" placeholder="enter your height in cm">
+									<br>
+									<div class="d-flex justify-content-center links">
+										result:{{bmi}} {{ result }}
+									</div>
+									<br>
+									<button style='margin-left: 35%;' type="submit" value="submit" class="btn btn-success btn-sm">Submit</button>
+									
+						</div><br>
+						<div class="btn-group" style="margin-left: 23%;">
+							<a href="{% url 'home:index' %}" class="btn btn-primary btn-sm" aria-current="page">home</a>
+							<a href="{% url 'Users:register' %}" class="btn btn-primary btn-sm">signup</a>
+							
+						  </div>
+						
+						
 					</form>
 				</div>
 			</div>

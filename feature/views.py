@@ -23,8 +23,6 @@ def bdTest(request):
         else:
             result = "Obese"
         
-        
-            
         return render(request, "feature/bdTest.html", {
             "bmi": bmi,
             "result": result

@@ -1,36 +1,32 @@
 {% extends "home/layout.html" %}
       
       {% block body %}
-          <div class="page-banner home-banner mb-5">
-            <div class="slider-wrapper">
-              <div class="owl-carousel hero-carousel">
-                <div class="hero-carousel-item">
-                  <img src="../assets/img/bg_image_1.jpg" alt="">
-                  <div class="img-caption">
-                    <div class="subhead">We're design studio believe in ideas</div>
-                    <h1 class="mb-4">Creative Design</h1>
-                    <a href="#services" class="btn btn-outline-light">Get Started</a>
-                  </div>
-                </div>
-                <div class="hero-carousel-item">
-                  <img src="../assets/img/bg_image_2.jpg" alt="">
-                  <div class="img-caption">
-                    <h1 class="mb-4">We combine Design, Thinking, and Technical</h1>
-                    <a href="#services" class="btn btn-outline-light">Get Started</a>
-                    <a href="#services" class="btn btn-primary">See Pricing</a>
-                  </div>
-                </div>
-                <div class="hero-carousel-item">
-                  <img src="../assets/img/bg_image_3.jpg" alt="">
-                  <div class="img-caption">
-                    <div class="subhead">Easy way to build perfect website</div>
-                    <h1 class="mb-4">Beautify handcrafted templates for your website</h1>
-                    <a href="#services" class="btn btn-primary">Read More</a>
-                  </div>
-                </div>
-              </div>
-            </div> <!-- .slider-wrapper -->
-          </div> <!-- .page-banner -->
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner" role="listbox" style=" width:100%; height: 500px !important;">
+          <div class="carousel-item active">
+            <img src="../static/images/slide1.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../static/images/slide3.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../static/images/slide4.jpg" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
         </header>
 
         <main>
@@ -39,15 +35,15 @@
               <div class="row align-items-center">
                 <div class="col-lg-6 py-3">
                   <div class="subhead">About Us</div>
-                  <h2 class="title-section">We are <span class="fg-primary">Professional Teams</span> to Growth your Business</h2>
+                  <h2 class="title-section">We are <span class="fg-primary">Professional Trainner</span> to Growth your MUSCLE!!</h2>
 
-                  <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of</p>
+                  <p>Takeitboii ให้บริการเทรนเนอร์ส่วนตัวโดยที่คุณไม่จำเป็นต้องเข้ายิม! เทรนเนอร์ของเราพร้อมให้คำแนะนำคุณผ่านวิดิโอคอล มีระบบTracking system เพื่อติดตามผลลัพธ์ของคุณ </p>
 
-                  <a href="about.html" class="btn btn-primary mt-4">Read More</a>
+                  <a href="{% url 'about:index' %}" class="btn btn-primary mt-4">Read More</a>
                 </div>
                 <div class="col-lg-6 py-3">
                   <div class="about-img">
-                    <img src="../assets/img/about.jpg" alt="">
+                    <img src="../static/images/about.jpg" alt="">
                   </div>
                 </div>
               </div>

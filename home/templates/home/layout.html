@@ -60,7 +60,7 @@
 
           <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-              <a href="index.html" class="navbar-brand">Takeitboii<span class="text-primary">.com</span></a>
+              <a href="{% url 'home:index' %}" class="navbar-brand">Takeitboii<span class="text-primary">.com</span></a>
 
               <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -69,7 +69,7 @@
               <div class="navbar-collapse collapse" id="navbarContent">
                 <ul class="navbar-nav ml-auto pt-3 pt-lg-0">
                   <li class="nav-item active">
-                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="{% url 'home:index' %}" class="nav-link">Home</a>
                   </li>
                   <li class="nav-item">
                     <a href="userprofile.html" class="nav-link">Shop</a>
@@ -96,8 +96,8 @@
                   <li class="nav-item">
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        
-                      </a>
+                      </a> 
+                      
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{% url 'Users:userprofile' %}">profile</a></li>
                         <li><a class="dropdown-item" href="{% url 'Users:logout' %}">Log out</a></li>
@@ -129,11 +129,11 @@
             <div class="container">
               <div class="row">
                 <div class="col-lg-3 py-3">
-                  <h3>Reve<span class="fg-primary">Tive.</span></h3>
+                  <h3>Takeit<span class="fg-primary">boii.</span></h3>
                 </div>
                 <div class="col-lg-3 py-3">
                   <h5>Contact Information</h5>
-                  <p>301 The Greenhouse, Custard Factory, London, E2 8DY.</p>
+                  <p>Takeitboii Gym.</p>
                   <p>Email: example@mail.com</p>
                   <p>Phone: +00 112323980</p>
                 </div>
