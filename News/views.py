@@ -1,15 +1,14 @@
+from django.shortcuts import render
+from .models import News
 
-from django.shortcuts import render,redirect
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.shortcuts import get_object_or_404
-from django.contrib import messages
+def home(request):
+    # Query all posts
+    all_posts = News.objects.all()
 
+    return render(request, 'news/listnews.html', {'all_posts': all_posts})
 
+def blog_details(request, id):
+    # Query only single post
+    single_post = News.objects.get(id=id)
 
-
-
-def news_views(request):
-    
-    return render(request, "news/news1.html")
-# Create your views here.
+    return render(request, 'news/news-details.html', {'single_post': single_post})
