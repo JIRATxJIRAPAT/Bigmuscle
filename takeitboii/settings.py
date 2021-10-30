@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'Users',
     'Courses',
     'home',
-    'about','News',
+    'about','News','feature',
 ]
 
 MIDDLEWARE = [
