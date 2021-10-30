@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import News
 
-def home(request):
+def news_list(request):
     # Query all posts
     all_posts = News.objects.all()
 

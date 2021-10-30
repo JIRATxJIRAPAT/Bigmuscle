@@ -75,13 +75,13 @@
                     <a href="userprofile.html" class="nav-link">Shop</a>
                   </li>
                   <li class="nav-item">
-                    <a href="services.html" class="nav-link">BodyTest</a>
+                    <a href="{% url 'feature:bdTest' %}" class="nav-link">BodyTest</a>
                   </li>
                   <li class="nav-item">
-                    <a href="portfolio.html" class="nav-link">Courses</a>
+                    <a href="#" class="nav-link">Courses</a>
                   </li>
                   <li class="nav-item">
-                    <a href="blog.html" class="nav-link">News</a>
+                    <a href="{% url 'News:news-list' %}" class="nav-link">News</a>
                   </li>
                   <li class="nav-item">
                     <a href="{% url 'Users:apply' %}" class="nav-link">Join us</a>
@@ -90,7 +90,7 @@
                  
                   {%if request.user.is_authenticated %}
                   <li class="nav-item">
-                    <a href="{% url 'Users:register' %}" class="nav-link">{{request.user.username}}</a>
+                    <a href="#" class="nav-link">{{request.user.username}}</a>
                   </li>
                  
                   <li class="nav-item">
