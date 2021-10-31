@@ -106,26 +106,11 @@
             <li class="nav-item">
               <a href="#" class="nav-link"> {{request.user.username}}</a>
             </li>
-
+            {% if request.user.customer.profile_pic %}
+            <img class='profile-pic-home' src='{{request.user.customer.profile_pic.url}}'>
             {% else %}
-            <li class="nav-item">
-              <a href="{% url 'Users:register' %}" class="nav-link">Sign up</a>
-            </li>
-            <li class="nav-item">
-              <a>|</a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'Users:login' %}" class="nav-link">Sign in</a>
-            </li>
-
+            <img class='profile-pic-home' src='/static/images/user_default_pic.jfif'>
             {% endif %}
-            <h6>
-              {% if request.user.customer.profile_pic %}
-              <img class='profile-pic-home' src='{{request.user.customer.profile_pic.url}}'>
-              {% else %}
-              <img class='profile-pic-home' src='/static/images/user_default_pic.jfif'>
-              {% endif %}
-            </h6>
             <li class="nav-item">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -141,6 +126,22 @@
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
             </li>
+
+            {% else %}
+            <li class="nav-item">
+              <a href="{% url 'Users:register' %}" class="nav-link">Sign up</a>
+            </li>
+            <li class="nav-item">
+              <a>|</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'Users:login' %}" class="nav-link">Sign in</a>
+            </li>
+            {% endif %}
+            <h6>
+
+            </h6>
+
           </ul>
         </div>
       </div> <!-- .container -->
