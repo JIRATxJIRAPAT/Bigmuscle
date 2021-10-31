@@ -3,6 +3,7 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from Users.models import Customer
 
 
 def bdTest(request):
@@ -10,8 +11,15 @@ def bdTest(request):
 
         weight = float(request.POST["weight"])
         height = float(request.POST["height"])/100
+        heightcm = float(request.POST["height"])
+        x = request.user.customer.id
+        val = Customer.objects.filter(id=x)
+        val.update(weight=weight)
+        val.update(height=heightcm)
+
         bmi = "{:.2f}".format(weight / (height ** 2))
         floatBmi = float(bmi)
+        val.update(bmi=floatBmi)
         if floatBmi < 18.5:
             result = "Underweight"
 
@@ -29,9 +37,8 @@ def bdTest(request):
             "result": result,
             "weight": weight,
             "height": height,
+            "val": val,
+            "x": x,
         })
     return render(request, 'feature/bdTest.html')
 
-
-def addbmi(request):
-    hey = 5

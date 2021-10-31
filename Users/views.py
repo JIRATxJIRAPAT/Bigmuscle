@@ -45,7 +45,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
 
-    return HttpResponseRedirect(reverse("Users:login"))
+    return HttpResponseRedirect(reverse("home:index"))
 
 
 def registerPage(request):
