@@ -1,25 +1,335 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>CRM</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
-        <style>
-        .profile-pic{
-            max-width: 200px;
-            max-height:200px;
-            margin: 0 auto;
-            border-radius: 100%;
-        }
-        </style>
+<script>
+    $("#profileImage").click(function (e) {
+        $("#imageUpload").click();
+    });
+</script>
 
-    </head>
-    
-       
-    
+<head>
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+        #imageUpload {
+            display: none;
+        }
+
+        #profileImage {
+            cursor: pointer;
+        }
+
+        body {
+            margin-top: 20px;
+            color: #1a202c;
+            text-align: left;
+            background-color: #e2e8f0;
+        }
+
+        .main-body {
+            padding: 15px;
+        }
+
+        .card {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: .25rem;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding: 1rem;
+        }
+
+        .gutters-sm {
+            margin-right: -8px;
+            margin-left: -8px;
+        }
+
+        .gutters-sm>.col,
+        .gutters-sm>[class*=col-] {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+        .mb-3,
+        .my-3 {
+            margin-bottom: 1rem !important;
+        }
+
+        .bg-gray-300 {
+            background-color: #e2e8f0;
+        }
+
+        .h-100 {
+            height: 100% !important;
+        }
+
+        .shadow-none {
+            box-shadow: none !important;
+        }
+    </style>
+
+</head>
+
+
+
 <body>
-   <img class='profile-pic' src= '{{request.user.customer.profile_pic.url}}'>
-    {{request.user.username}}
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a href="{% url 'home:index' %}" class="navbar-brand">Takeitboii<span class="text-primary">.com</span></a>
+        </div>
+    </nav>
+
+
+
+
+    <div class="container">
+        <div class="main-body">
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home:index' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                </ol>
+            </nav>
+            <!-- /Breadcrumb -->
+
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+
+                                {% if request.user.customer.profile_pic %}
+                                <img class='profile-pic' src='{{request.user.customer.profile_pic.url}}'>
+                                {% else %}
+                                <img class='profile-pic' src='/static/images/user_default_pic.jfif'>
+                                {% endif %}
+                                <div class="mt-3">
+                                    <h4> {{request.user.username}}</h4>
+                                    <p class="text-secondary mb-1">Welcome </p>
+                                    <p class="text-muted font-size-sm">To takeitboii</p>
+
+                                    <div class="col-md-p">
+                                        <form method="POST" action="" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            {{ form.as_p }}
+                                            <input class="btn btn-primary" type="submit" name="Update picture">
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-3">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                        fill="currentColor" class="bi bi-cone-striped" viewBox="0 0 16 16">
+                                        <path
+                                            d="m9.97 4.88.953 3.811C10.159 8.878 9.14 9 8 9c-1.14 0-2.158-.122-2.923-.309L6.03 4.88C6.635 4.957 7.3 5 8 5s1.365-.043 1.97-.12zm-.245-.978L8.97.88C8.718-.13 7.282-.13 7.03.88L6.275 3.9C6.8 3.965 7.382 4 8 4c.618 0 1.2-.036 1.725-.098zm4.396 8.613a.5.5 0 0 1 .037.96l-6 2a.5.5 0 0 1-.316 0l-6-2a.5.5 0 0 1 .037-.96l2.391-.598.565-2.257c.862.212 1.964.339 3.165.339s2.303-.127 3.165-.339l.565 2.257 2.391.598z" />
+                                    </svg>Trainer </h6>
+                                {% if request.user.customer.Trainer %}
+                                <span class="text-secondary"> {{request.user.customer.Trainer}} </span>
+                                {% else %}
+                                <span class="text-secondary"> None </span>
+                                {% endif %}
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                        fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                                    </svg>Mobile</h6>
+                                <span class="text-secondary">None</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">First Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{request.user.first_name}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Last name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{request.user.last_name}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{request.user.email}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Height</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{request.user.customer.height}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">weight</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{request.user.customer.weight}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Course</h6>
+                                </div>
+
+
+                                {% if request.user.customer.owned %}
+                                <span>
+                                    <div class="col-sm-9 text-secondary">if request.user.customer.owned</div>
+                                </span>
+                                {% else %}
+                                <span>
+                                    <div class="col-sm-9 text-secondary">You didnt select any course
+                                </span>
+                                <a class="btn btn-secondary " target="__blank" href="#"> Course List!</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <hr>
+
+
+
+                    </div>
+                </div>
+
+                <div class="row gutters-sm">
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3"><i
+                                        class="material-icons text-info mr-2">Track</i>Status</h6>
+                                <small>FIT</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
+                                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>SIT UP</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
+                                        aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Squirt jump</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
+                                        aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Maraton</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
+                                        aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>flex</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
+                                        aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3"><i
+                                        class="material-icons text-info mr-2">assignment</i>Project Status</h6>
+                                <small>Web Design</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
+                                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Website Markup</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
+                                        aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>One Page</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
+                                        aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Mobile Template</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
+                                        aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <small>Backend API</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
+                                        aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
 </body>
 
 
