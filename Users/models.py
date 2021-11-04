@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from Workout.models import Tracks
 
 # Create your models here.
 
@@ -25,6 +26,7 @@ class Customer(models.Model):
     bmi = models.FloatField(default=0)
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="my_trainer", null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True)
+    track = models.OneToOneField(Tracks, blank=True, on_delete=models.CASCADE, related_name="customer_track", null=True)
     
     def __str__(self):
         return f"{self.user} {self.id}"
