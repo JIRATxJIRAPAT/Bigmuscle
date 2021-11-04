@@ -4,7 +4,7 @@ from django.urls import reverse
 from Users.models import *
 from .models import *
 
-# Create your views here.
+# Create uwu your views here.
 
 def index(request):
     if not request.user.is_authenticated:
