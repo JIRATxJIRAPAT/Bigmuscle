@@ -33,6 +33,6 @@ class Tracks(models.Model):
     track_customer = models.OneToOneField('Users.Customer', related_name="tracks_owner",on_delete=models.CASCADE)
     track_trainer = models.OneToOneField('Users.Trainer',related_name="trainer",on_delete=models.CASCADE)
     all_program_status = models.BooleanField(default= False)
-    maxday = models.PositiveIntegerField(default = 0)
+    day = models.PositiveIntegerField(default=0)
     def str(self):
         return f"{self.track_trainer} {self.track_customer} {self.all_program_status}"
