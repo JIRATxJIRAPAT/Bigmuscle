@@ -29,7 +29,7 @@ class Program(models.Model):
 
 class Tracks(models.Model):
     day_pragram = models.ManyToManyField(Program, blank=True,related_name="daily")
-    track_trainer = models.OneToOneField('Users.Trainer',related_name="trainer",on_delete=models.CASCADE)
+    track_trainer = models.OneToOneField('Trainer.Trainer',related_name="trainer",on_delete=models.CASCADE)
     all_program_status = models.BooleanField(default= False)
     day = models.PositiveIntegerField(default=0)
     def str(self):
