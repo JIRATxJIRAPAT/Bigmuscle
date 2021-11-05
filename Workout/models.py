@@ -21,7 +21,7 @@ class Workout(models.Model):
         return f"{self.exercise} {self.wo_set} {self.wo_time}"
 
 class Day_Program(models.Model):
-    workouts = models.ForeignKey(Workout, on_delete=CASCADE, blank= True)
+    workouts = models.ManyToManyField(Workout,related_name="workoutplan", blank= True)
     dp_date = models.DateField(blank= True)
     dp_status = models.BooleanField(default= False)
 
