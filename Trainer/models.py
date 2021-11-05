@@ -5,14 +5,15 @@ from django.dispatch import receiver
 # Create your models here.
 
 class Trainer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
+    user = models.CharField(max_length=10)
+    email = models.EmailField()
+    name = models.CharField(max_length=20)
+    surname = models.CharField(max_length=20)
+    password = models.CharField(max_length=50)
     gender = models.CharField(max_length=20)
     specialist = models.CharField(max_length=100)
-    approve = models.BooleanField(default=False)  
+    approve = models.BooleanField(default=False)
+    
     def __str__(self):
-        return f"{self.user.username} {self.approve}"
+        return f" {self.approve}"
 
-    @receiver(post_save, sender=User)
-    def create_user_picks(sender, instance, created, **kwargs):
-        if created:
-            Trainer.objects.create(user=instance)

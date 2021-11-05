@@ -16,6 +16,7 @@ class Customer(models.Model):
     track_customer = models.OneToOneField('Tracking.Tracks', related_name="tracks_owner",on_delete=models.CASCADE,null=True)
     profile_pic = models.ImageField(null=True, blank=True)
     is_trainer = models.BooleanField(default=False)
+    
     def __str__(self):
         return f"{self.user} {self.id}"
 
@@ -23,3 +24,5 @@ class Customer(models.Model):
     def create_user_picks(sender, instance, created, **kwargs):
         if created:
             Customer.objects.create(user=instance)
+    
+    

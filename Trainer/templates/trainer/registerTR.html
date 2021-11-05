@@ -81,7 +81,7 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							{{form.username}}
+							{{form.user}}
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
@@ -93,25 +93,31 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							{{form.password1}}
+							{{form.name}}
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							{{form.password2}}
+							{{form.surname}}
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="far fa-id-badge"></i></span>
 							</div>
-							{{form.first_name}}
+							{{form.password}}
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="far fa-id-badge"></i></span>
 							</div>
-							{{form.last_name}}
+							{{form.gender}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="far fa-id-badge"></i></span>
+							</div>
+							{{form.specialist}}
 						</div>
 
 
@@ -142,11 +148,11 @@
 		var form_fields = document.getElementsByTagName('input')
 		form_fields[1].placeholder='Username..';
 		form_fields[2].placeholder='Email..';
-		form_fields[3].placeholder='Enter password...';
-		form_fields[4].placeholder='Re-enter Password...';
-		form_fields[5].placeholder='First name';
-		form_fields[6].placeholder='Last name';
-
+		form_fields[3].placeholder='name';
+		form_fields[4].placeholder='surname';
+		form_fields[5].placeholder='pass';
+		form_fields[6].placeholder='gender';
+		form_fields[7].placeholder='spec';
 		for (var field in form_fields){	
 			form_fields[field].className += ' form-control'
 		}
