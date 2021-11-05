@@ -11,11 +11,12 @@ class Exercise(models.Model):
 
 
 class Workout(models.Model):
+    exercise = models.ForeignKey(Exercise,on_delete=models.CASCADE,null=True)
     date = models.DateTimeField(auto_now=False, auto_now_add=False)
     reps = models.PositiveIntegerField()
     sets = models.PositiveIntegerField()
     status = models.BooleanField(default=False)
-    exercise = models.ForeignKey(Exercise,on_delete=models.CASCADE,null=True)
+    
     
     def __str__(self):
         return f"{self.exercise} in {self.date}"
