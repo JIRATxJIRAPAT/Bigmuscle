@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>program manage</title>
+        <h1>{{  userTrack }}</h1>
+    </head>
+    <body>
+        <h3>workout</h3>
+        {% for i in all_wo %}
+        <a>{{ i }}</a>
+        <hr>
+        {% endfor %}
+        <h3>exercise</h3>
+        {% for i in all_ex %}
+        <a>{{ i }}</a>
+        <hr>
+        {% endfor %}
+        <h3>day program</h3>
+        {% for i in all_dp %}
+        <a>{{ i }}</a>
+        <hr>
+        {% endfor %}
+    </body>
+</html>
