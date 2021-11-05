@@ -7,15 +7,17 @@ from django.dispatch import receiver
 
 
 class Trainer(models.Model):
-    trainer_id = models.PositiveIntegerField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
     gender = models.CharField(max_length=20)
     specialist = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.trainer_id}"
+        return f"{self.id}"
 
-
+    @receiver(post_save, sender=User)
+    def create_user_picks(sender, instance, created, **kwargs):
+        if created:
+            Trainer.objects.create(user=instance)
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
     owned = models.ForeignKey('Courses.Course', on_delete=models.CASCADE,

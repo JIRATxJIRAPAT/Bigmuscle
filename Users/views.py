@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
-from .forms import CreateUserForm, CustomerForm
+from .forms import CreateUserForm, CustomerForm,CreateUserTRForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import Customer
 
@@ -62,7 +62,7 @@ def registerPage(request):
 
 
 def registerPageTR(request):
-    form = CreateUserForm()
+    form = CreateUserTRForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
