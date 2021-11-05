@@ -18,3 +18,4 @@ class CustomerForm(ModelForm):
     class Meta:
         model = Customer
         fields = ['profile_pic', ]
+

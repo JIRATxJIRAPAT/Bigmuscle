@@ -61,14 +61,3 @@ def registerPage(request):
     return render(request, 'users/register.html', context)
 
 
-def registerPageTR(request):
-    form = CreateUserForm()
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect("home:index")
-    context = {'form': form}
-    return render(request, 'users/registertr.html', context)
