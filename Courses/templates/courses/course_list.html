@@ -1,0 +1,15 @@
+
+{% extends "home/layout.html" %}
+
+{% block body %}
+        <div class="container">
+            <h1>SELECT YOUR COURSE</h1>
+        </div >
+        {% for x in course_list  %}
+            <div class="container">
+            <a href="{% url 'Courses:course_details'  x.id %}" class="btn btn-dark">{{ x }} </a>
+            </div >
+           
+        {% endfor %}
+
+{% endblock %}

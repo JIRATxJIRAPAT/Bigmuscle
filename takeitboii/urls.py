@@ -27,6 +27,7 @@ urlpatterns = [
     path('feature/',include('feature.urls')),
     path('tracking/',include('Tracking.urls')),
     path('trainer/',include('Trainer.urls')),
+    path('Courses/',include('Courses.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
