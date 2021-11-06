@@ -54,6 +54,7 @@ def registerPage(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            customer = Customer.objects.create(user=user)
             login(request, user)
             messages.success(request, "Registration successful.")
             return redirect("home:index")
