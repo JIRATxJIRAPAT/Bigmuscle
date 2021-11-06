@@ -17,7 +17,7 @@ class Customer(models.Model):
     profile_pic = models.ImageField(null=True, blank=True)
     
     def __str__(self):
-        return f"{self.user} {self.id}"
+        return f"{self.user} {self.id} {self.owned}"
 
     #@receiver(post_save, sender=User)
     #def create_user_picks(sender, instance, created, **kwargs):

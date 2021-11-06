@@ -1,15 +1,80 @@
 
 {% extends "home/layout.html" %}
 
-{% block body %}
+    
+  
+      <!-- end header section -->
+        <style>
+            .block{
+                display:inline-block;
+                border-top: 10px solid #333333;
+                
+            }                  
+        </style>
+            
+        {% block body %}
+        <!--
+        <div class="container">
+            <div class="row">
+              <div class="col order-last">
+                {% for x in course_list|slice:":1"  %}
+                <tr>
+                <div class="card" style="width: auto;">
+                    
+                    
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">{{x.name}}</h5>
+                    <p class="card-text">{{ x.info }}</p>
+                
+                    <a href="{% url 'Courses:course_details'  x.id %}" class="btn btn-primary">{{ x }}</a>
+                    
+                {% endfor %}
+                    
+                </div></tr>
+          </div>
+              </div>
+              <div class="col">
+                {% for x in course_list %}
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">{{x.name}}</h5>
+                <p class="card-text">{{ x.info }}</p>
+                
+                <a href="{% url 'Courses:course_details'  x.id %}" class="btn btn-primary">{{ x }}</a>
+                {% endfor %}
+              </div>
+              <div class="col order-first">
+                Third in DOM, ordered first
+              </div>
+            </div>
+          </div>
+
+          -->
+          
         <div class="container">
             <h1>SELECT YOUR COURSE</h1>
         </div >
-        {% for x in course_list  %}
-            <div class="container">
-            <a href="{% url 'Courses:course_details'  x.id %}" class="btn btn-dark">{{ x }} </a>
-            </div >
-           
-        {% endfor %}
-
+        <div class="block" style="margin-left: 10%;">
+            {% for x in course_list  %}
+            <!--
+            <a href="{% url 'Courses:course_details' x.id %}">
+                <img alt="Qries" src='{{ x.pic.url }}'
+                width="240" height="320" style="margin: 1%">
+                <div>{{x.name}}</div>
+            </a>
+            -->
+            
+            <div class="block" >
+                <a href="{% url 'Courses:course_details' x.id %}">
+                <div class="card" style="width: 18rem;">
+                    <img src='{{ x.pic.url }}'class="card-img-top" alt="..."width="240" height="320"style="margin: 2%">
+                    <div class="card-body">
+                    <p class="card-text" style="text-align: center;">{{x.name}}</p>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            </div>
+        -->
 {% endblock %}

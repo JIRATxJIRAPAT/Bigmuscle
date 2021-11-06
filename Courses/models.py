@@ -8,6 +8,7 @@ class Course(models.Model):
     info = models.CharField(max_length = 500)
     teach = models.ManyToManyField('Trainer.Trainer' ,related_name="teacher",blank = False)
     days = models.PositiveIntegerField(default = 0)
+    pic = models.ImageField(null=True, blank=True)
     #sitting = models.PositiveIntegerField()
 
     def __str__(self):
