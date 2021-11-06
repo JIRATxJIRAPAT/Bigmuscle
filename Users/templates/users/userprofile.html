@@ -227,14 +227,15 @@
 
 
                                 {% if request.user.customer.owned %}
-                                <span>
-                                    <div class="col-sm-9 text-secondary">if request.user.customer.owned</div>
-                                </span>
+
+                                <div class="col-sm-9 text-secondary">you have {{request.user.customer.owned.name}}</div>
+
                                 {% else %}
                                 <span>
                                     <div class="col-sm-9 text-secondary">You didnt select any course
                                 </span>
-                                <a class="btn btn-secondary " target="__blank" href="{% url 'Courses:course_list' %}"> Course List!</a>
+                                <a class="btn btn-secondary " target="__blank" href="{% url 'Courses:course_list' %}">
+                                    Course List!</a>
                             </div>
                             {% endif %}
                         </div>

@@ -38,6 +38,7 @@
       -ms-border-radius: 50%;
       -o-border-radius: 50%;
       border-radius: 50%;
+
     }
   </style>
 
@@ -106,10 +107,18 @@
             <li class="nav-item">
               <a href="#" class="nav-link"> {{request.user.username}}</a>
             </li>
+            {% if request.user.customer %}
             {% if request.user.customer.profile_pic %}
             <img class='profile-pic-home' src='{{request.user.customer.profile_pic.url}}'>
             {% else %}
             <img class='profile-pic-home' src='/static/images/user_default_pic.jfif'>
+            {% endif %}
+            {%else%}
+            {% if request.user.trainer.profile_pic %}
+            <img class='profile-pic-home' src='{{request.user.trainer.profile_pic.url}}'>
+            {% else %}
+            <img class='profile-pic-home' src='/static/images/trainer_default_pic.jpg'>
+            {% endif %}
             {% endif %}
             <li class="nav-item">
             <li class="nav-item dropdown">

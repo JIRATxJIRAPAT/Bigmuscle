@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<script>
+    $("#profileImage").click(function (e) {
+        $("#imageUpload").click();
+    });
+</script>
+
+<head>
+    <title>Trainer course</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+        #imageUpload {
+            display: none;
+        }
+
+        #profileImage {
+            cursor: pointer;
+        }
+
+        body {
+            margin-top: 20px;
+            color: #1a202c;
+            text-align: left;
+            background-color: #e2e8f0;
+        }
+
+        .main-body {
+            padding: 15px;
+        }
+
+        .card {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: .25rem;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding: 1rem;
+        }
+
+        .gutters-sm {
+            margin-right: -8px;
+            margin-left: -8px;
+        }
+
+        .gutters-sm>.col,
+        .gutters-sm>[class*=col-] {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+        .mb-3,
+        .my-3 {
+            margin-bottom: 1rem !important;
+        }
+
+        .bg-gray-300 {
+            background-color: #e2e8f0;
+        }
+
+        .h-100 {
+            height: 100% !important;
+        }
+
+        .shadow-none {
+            box-shadow: none !important;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <div class="container">
+            <a href="{% url 'home:index' %}" class="navbar-brand">Takeitboii<span class="text-primary">.com</span></a>
+        </div>
+    </nav>
+
+
+
+
+    <div class="container">
+        <div class="main-body">
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="main-breadcrumb ">
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home:index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'Trainer:index' %}">Trainer profile</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Trainer Course</li>
+                </ol>
+
+                <!-- /Breadcrumb -->
+                <main>
+                    <div class="row gutters-sm">
+                        <div class="col-md-12">
+                            <div class="card mb-1">
+                                <div class="card-body">
+                                    <hr>
+                                    <div class="row">
+
+                                        <div class=" d-flex align-items-center ">
+                                            <h1>Trainer course</h1>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    {%for i in all_course%}
+                                    <div class="col-md-5">
+
+                                        <h3>{{i}}</h3>
+                                        <a href="{% url 'Trainer:courseInfo'%}">{{course}}</a><br>
+                                        {% empty %}
+                                        <h3>you have no course</h3>
+                                        {% endfor %}
+                                        <form method="POST" action="">
+                                            {% csrf_token %}
+                                            <div>
+                                                <label for="bmi">dis is ya course:</label>
+                                                <select name='course'
+                                                    onchange='if(this.value != 0) { this.form.submit(); }'>
+                                                    <option value="0">------ALL COURSE YOU TEACHED------</option>
+                                                    {% for course in all_course %}
+                                                    <option value="{{ course.id }}">
+                                                        {{course.name}}</option>
+                                                    {%empty%}
+                                                    <option value=""> course is empty</option>
+                                                    <hr>
+                                                    {%endfor%}
+                                                </select>
+
+                                            </div><br>
+                                        </form>
+
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+
+                        </div>
+                </main>
+
+
+        </div>
+    </div>
+
+</body>
+
+
+</html>

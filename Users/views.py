@@ -12,6 +12,7 @@ from .models import Customer
 
 # Create your views here.
 
+
 def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
@@ -22,13 +23,15 @@ def index(request):
             checkTr = None
 
         if checkTr is not None:
-            return render(request, "trainer/trainerProfile.html")
+            return HttpResponseRedirect(reverse("Trainer:index"))
         else:
 
             Customer1 = request.user.customer
+
             form = CustomerForm(instance=Customer1)
             if request.method == 'POST':
-                form = CustomerForm(request.POST, request.FILES, instance=Customer1)
+                form = CustomerForm(
+                    request.POST, request.FILES, instance=Customer1)
                 if form.is_valid():
                     form.save()
             context = {'form': form}
@@ -68,5 +71,3 @@ def registerPage(request):
             return redirect("home:index")
     context = {'form': form}
     return render(request, 'users/register.html', context)
-
-

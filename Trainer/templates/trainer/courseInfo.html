@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>course info</title>
+    <h1>{{ request.user }}</h1>
+</head>
+
+<body>
+    <h1>welcome to {{course}} info</h1>
+    <h1>this is student in yout course</h1>
+    {% for cus in customerList %}
+    <a href="{% url 'Trainer:customerTrack' id=cus.id%}">{{cus}}</a><br>
+    <h3>{{cus}}</h3>
+    {%empty%}
+    <h3>no customer</h3>
+    {% endfor %}
+</body>
+
+</html>

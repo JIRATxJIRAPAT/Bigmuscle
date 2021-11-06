@@ -4,11 +4,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
-
 from django.contrib.auth.forms import UserCreationForm
-
+from Users.models import Customer
 from .models import Course
-
 
 
 def course_page(request):
@@ -18,30 +16,32 @@ def course_page(request):
 
 
 def show_course(request, id):
-    
+
     course_details = Course.objects.get(id=id)
 
     return render(request, 'courses/course_details.html', {'course_details': course_details})
 
-'''
-def apply(request, name):
+
+def apply(request, id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
 
-    x = get_object_or_404(Course,pk=name)
-    if request.user:
-        x.sitting += 1 
-    return HttpResponseRedirect(reverse("Users:userprofile",args=(name,)))
+    x = get_object_or_404(Course, pk=id)
+
+    cus = Customer.objects.get(user=request.user)
+    if cus.owned == None:
+        cus = Customer.objects.filter(user=request.user)
+        cus.update(owned=x)
+    return HttpResponseRedirect(reverse("Courses:course_details", args=(id,)))
 
 
-def removeCourse(request , name):
-
+def removeCourse(request, id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
 
-    x = get_object_or_404(Course,pk=name)
-    if request.user:
-        x.sitting -=  1
-    return HttpResponseRedirect(reverse("Register:ShowCourse",args=(name,)))
-
-'''
+    x = get_object_or_404(Course, pk=id)
+    cus = Customer.objects.get(user=request.user)
+    if cus.owned == x:
+        cus = Customer.objects.filter(user=request.user)
+        cus.update(owned=None)
+    return HttpResponseRedirect(reverse("Courses:course_details", args=(id,)))

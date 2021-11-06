@@ -12,3 +12,9 @@ class CreateUserTRForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1',
                   'password2', 'first_name', 'last_name', ]
+
+
+class TrainerForm(ModelForm):
+    class Meta:
+        model = Trainer
+        fields = ['profile_pic', ]
