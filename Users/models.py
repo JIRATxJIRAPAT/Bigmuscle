@@ -19,7 +19,7 @@ class Customer(models.Model):
     def __str__(self):
         return f"{self.user} {self.id}"
 
-    @receiver(post_save, sender=User)
-    def create_user_picks(sender, instance, created, **kwargs):
-        if created:
-            Customer.objects.create(user=instance)
+    #@receiver(post_save, sender=User)
+    #def create_user_picks(sender, instance, created, **kwargs):
+    #   if created:
+    #        Customer.objects.create(user=instance)

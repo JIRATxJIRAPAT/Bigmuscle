@@ -12,7 +12,7 @@ class Trainer(models.Model):
     def __str__(self):
         return f"{self.user.username} {self.approve}"
 
-    @receiver(post_save, sender=User)
-    def create_user_picks(sender, instance, created, **kwargs):
-        if created:
-            Trainer.objects.create(user=instance)
+    #@receiver(post_save, sender=User)
+    #def create_user_picks(sender, instance, created, **kwargs):
+    #    if created:
+    #        Trainer.objects.create(user=instance)

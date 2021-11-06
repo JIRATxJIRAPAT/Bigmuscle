@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from .forms import CreateUserTRForm
 from django.contrib.auth.forms import UserCreationForm
-
+from .models import Trainer
 
 
 # Create your views here.
@@ -15,7 +15,11 @@ def registerPageTR(request):
     if request.method == 'POST':
         form = CreateUserTRForm(request.POST)
         if form.is_valid():
+            gender = request.POST["gender"]
+            sp = request.POST["specialist"]
+            
             user = form.save()
+            tr = Trainer.objects.create(user=user, gender=gender, specialist=sp)
             login(request, user)
             messages.success(request, "Registration successful.")
             return redirect("home:index")
