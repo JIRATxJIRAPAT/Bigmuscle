@@ -15,11 +15,13 @@ def registerPageTR(request):
     if request.method == 'POST':
         form = CreateUserTRForm(request.POST)
         if form.is_valid():
+            age = request.POST["age"]
+            number = request.POST["tel"]
+            bio = request.POST["bio"]
             gender = request.POST["gender"]
             sp = request.POST["specialist"]
-            
             user = form.save()
-            tr = Trainer.objects.create(user=user, gender=gender, specialist=sp)
+            tr = Trainer.objects.create(user=user, gender=gender, specialist=sp,age=age,tel=number,bio=bio)
             login(request, user)
             messages.success(request, "Registration successful.")
             return redirect("home:index")

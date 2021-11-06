@@ -6,13 +6,12 @@ from django.dispatch import receiver
 
 class Trainer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
+    age = models.PositiveIntegerField(default=0)
     gender = models.CharField(max_length=20)
+    bio = models.CharField(max_length=250,null=True)
     specialist = models.CharField(max_length=100)
-    approve = models.BooleanField(default=False)  
+    tel = models.CharField(max_length=10,null=True)
+    approve = models.BooleanField(default=False)
+    profile_pic = models.ImageField(null=True, blank=True)
     def __str__(self):
         return f"{self.user.username} {self.approve}"
-
-    #@receiver(post_save, sender=User)
-    #def create_user_picks(sender, instance, created, **kwargs):
-    #    if created:
-    #        Trainer.objects.create(user=instance)

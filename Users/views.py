@@ -4,27 +4,35 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+
+from Trainer.models import Trainer
 from .forms import CreateUserForm, CustomerForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import Customer
 
 # Create your views here.
 
-
 def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
-    #get_subject = request.user.enroll.all()
     else:
-        Customer = request.user.customer
-        form = CustomerForm(instance=Customer)
-        if request.method == 'POST':
-            form = CustomerForm(request.POST, request.FILES, instance=Customer)
-            if form.is_valid():
-                form.save()
-        context = {'form': form}
-        return render(request, "users/userprofile.html", context)
-    # "subject":get_subject,
+        try:
+            checkTr = Trainer.objects.get(user=request.user)
+        except Trainer.DoesNotExist:
+            checkTr = None
+
+        if checkTr is not None:
+            return render(request, "trainer/trainerProfile.html")
+        else:
+
+            Customer1 = request.user.customer
+            form = CustomerForm(instance=Customer1)
+            if request.method == 'POST':
+                form = CustomerForm(request.POST, request.FILES, instance=Customer1)
+                if form.is_valid():
+                    form.save()
+            context = {'form': form}
+            return render(request, "users/userprofile.html", context)
 
 
 def login_view(request):
