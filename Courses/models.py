@@ -1,7 +1,9 @@
 from django.db import models
-
+from Trainer.models import *
 
 # Create your models here.
+
+
 class Course(models.Model):
 
     name = models.CharField(max_length=500)
@@ -11,5 +13,5 @@ class Course(models.Model):
     days = models.PositiveIntegerField(default=0)
     pic = models.ImageField(null=True, blank=True)
 
-    def str(self):
-        return f"{self.name} "
+    def __str__(self):
+        return f"{self.name} {self.days}"

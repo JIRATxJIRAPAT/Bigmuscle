@@ -124,7 +124,7 @@
                 <main>
                     <div class="row gutters-sm">
                         <div class="col-md-12">
-                            <div class="card mb-1">
+                            <div class="card mb-3">
                                 <div class="card-body">
                                     <hr>
                                     <div class="row">
@@ -136,37 +136,57 @@
                                     <hr>
                                     {%for i in all_course%}
                                     <div class="col-md-5">
-
-                                        <h3>{{i}}</h3>
+                                        <h3>ddd{{i.name}}</h3>
                                         <a href="{% url 'Trainer:courseInfo'%}">{{course}}</a><br>
                                         {% empty %}
                                         <h3>you have no course</h3>
                                         {% endfor %}
-                                        <form method="POST" action="">
-                                            {% csrf_token %}
-                                            <div>
-                                                <label for="bmi">dis is ya course:</label>
-                                                <select name='course'
-                                                    onchange='if(this.value != 0) { this.form.submit(); }'>
-                                                    <option value="0">------ALL COURSE YOU TEACHED------</option>
-                                                    {% for course in all_course %}
-                                                    <option value="{{ course.id }}">
-                                                        {{course.name}}</option>
-                                                    {%empty%}
-                                                    <option value=""> course is empty</option>
-                                                    <hr>
-                                                    {%endfor%}
-                                                </select>
-
-                                            </div><br>
-                                        </form>
-
                                     </div>
-                                    <hr>
-                                </div>
-                            </div>
+                                    <form method="POST" action="">
+                                        {% csrf_token %}
+                                        <div>
+                                            <label for="bmi">dis is ya course:</label>
+                                            <select name='course'
+                                                onchange='if(this.value != 0) { this.form.submit(); }'>
+                                                <option value="0">------ALL COURSE YOU TEACHED------</option>
+                                                {% for course in all_course %}
+                                                <option value="{{ course.id }}">
+                                                    {{course.name}}</option>
+                                                {%empty%}
+                                                <option value=""> course is empty</option>
+                                                <hr>
+                                                {%endfor%}
+                                            </select>
 
+                                        </div><br>
+                                    </form>
+
+                                </div>
+                                <hr>
+                            </div>
                         </div>
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card mb-5">
+                            <div class="card-body">
+                                <hr>
+                                {% if course_info %}
+                                <h1>NAME : {{course_info.name}}</h1>
+                                {%else%}
+                                <h1>NAME : didnt select</h1>
+                                {%endif%}
+                                {%for i in customerList %}
+                                <h1>Student: {{i.user}}
+                                    <a href="{% url 'Trainer:customerTrack' id=i.id%}">Check track</a><br>
+                                </h1>
+                                {%empty%}
+                                <h1>Student: none</h1>
+                                {%endfor%}
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
                 </main>
 
 

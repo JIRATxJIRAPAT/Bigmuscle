@@ -14,6 +14,7 @@ from .models import Customer
 
 
 def index(request):
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
     else:
@@ -29,12 +30,17 @@ def index(request):
             Customer1 = request.user.customer
 
             form = CustomerForm(instance=Customer1)
+            tr = get_object_or_404(Customer, user=request.user).trainer
+            tr_name = "None"
+            if tr is not None:
+                tr_name = tr.user
             if request.method == 'POST':
                 form = CustomerForm(
                     request.POST, request.FILES, instance=Customer1)
                 if form.is_valid():
                     form.save()
-            context = {'form': form}
+            context = {'form': form,
+                       'trainer': tr_name}
             return render(request, "users/userprofile.html", context)
 
 

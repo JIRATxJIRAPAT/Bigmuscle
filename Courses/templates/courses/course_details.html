@@ -1,26 +1,102 @@
 {% extends "home/layout.html" %}
-
 {% load static %}
 
 {% block body %}
 
+<head>
+  <style>
+    .profile-pic-course {
+      width: 300px;
+      height: auto;
+      overflow: hidden;
 
+    }
+  </style>
+</head>
 {% if course_details %}
 
 <body>
-  <br></br>
-  <br></br>
-  <h1>{{ course_details.name }}</h1>
+  <hr>
+  <div class=" container">
+    <div class="vg-page page-about" id="about">
+      <div class="container py-5">
+        <div class="row">
+          <div class="col-lg-4 py-3">
+            <div class="img-place wow fadeInUp">
+              {% if course_details.pic %}
+              <img src="{{course_details.pic.url}}">
+              {% else %}
+              <img src='/static/images/trainer_default_pic.jpg'>
+              {% endif %}
+            </div>
+          </div>
+          <div class=" col-lg-6 offset-lg-1 wow fadeInRight">
+            <h1 class="fw-light">{{course_details.name}}</h1>
+            <div class="row">
+              <ul class="theme-list">
+                <b>
+                  Teach by :
+                </b>
+                {% for i in listTr %}
+                {{i}}
+                {% endfor %}
+              </ul>
+            </div>
 
-  <p>{{ course_details.info | safe }}</p>
-</body>
 
 
-{{x}}
-<p><a href="{% url 'Courses:apply' course_details.id %}" class="btn btn-success">Apply course &#128221</a></h3>
-<p><a href="{% url 'Courses:remove' course_details.id %}" class="btn btn-danger">&#9888 Remove course &#9888</a></h3>
-  {% endif %}
 
+            <p class=" text-muted">{{course_details.info}}</p>
+            <ul class="theme-list">
+              <li><b>From:</b> Texas, US</li>
+              <li><b>Lives In:</b> Texas, US</li>
+              <li><b>Age:</b> 25</li>
+              <li><b>Gender:</b> Male</li>
+            </ul>
+            <div class="row">
+              <hr>
+              <div class="col-sm">
+
+                {% if check_add %}
+                <a href="{% url 'Courses:apply' course_details.id %}" class="btn btn-success">Apply course
+                  &#128221</a>
+                </h3>
+                {% else %}
+
+                <button type="button" class="btn  btn-success" disabled>Can't apply </a>
+
+                  {%endif%}
+              </div>
+              <div class="col-sm">
+                {% if check_remove %}
+                <p><a href="{% url 'Courses:remove' course_details.id %}" class="btn btn-danger">&#9888 Remove
+                    course
+                    &#9888</a>
+                  </h3>
+                  {% else %}
+
+                  <button type="button" class="btn  btn-danger" disabled>Can't remove </a>
+
+                    {%endif%}
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  {% endblock %}
+
+
+
+
+
+  {% endif %}
+
+
+  </p>
+</body>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "home/layout.html" %}
+
+{% block body %}
+
+
+<div class="container">
+    <h1>SELECT YOUR TR</h1>
+</div>
+
+<form method="POST" action="">
+
+    <form method="POST">
+        {% csrf_token %}
+        {% for y in trainer %}
+        <input type="submit" name="trainer" value="{{y.id}}">
+        {% endfor %}
+    </form>
+    {{ val }}
+</form>
+
+
+
+{% endblock %}

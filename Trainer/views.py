@@ -58,8 +58,9 @@ def trainer_course(request):
                 for i in cus:
                     cusList.append(i)
                     # cus = Customer.objects.get(owned=course).all()
-                return render(request, "trainer/courseInfo.html", {
-                    "course": course,
+                return render(request, "trainer/trainercourse.html", {
+                    "all_course": blanklist,
+                    "course_info": course,
                     "customerList": cusList,
                 })
 

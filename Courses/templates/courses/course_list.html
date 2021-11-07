@@ -8,7 +8,7 @@
 <div class="container">
 
 
-    <a href="{% url 'Courses:course_details'  x.id %}" class="btn btn-dark">{{ x }} </a>
+    <a href="{% url 'Courses:course_details'  x.id %}" class="btn btn-dark">{{ x.name}} </a>
 </div>
 
 {% endfor %}
