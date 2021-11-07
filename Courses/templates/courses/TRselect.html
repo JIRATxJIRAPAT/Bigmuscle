@@ -12,12 +12,13 @@
     <form method="POST">
         {% csrf_token %}
         {% for y in trainer %}
+        <div style="text-align: center;">
         <input type="submit" name="trainer" value="{{y.id}}">
+        </div>
         {% endfor %}
     </form>
     {{ val }}
 </form>
-
 
 
 {% endblock %}
