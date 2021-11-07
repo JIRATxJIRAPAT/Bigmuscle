@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import django_heroku
 from pathlib import Path
 import os
-
+import os.path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -73,6 +73,9 @@ TEMPLATES = [
         },
     },
 ]
+PROJECT_DIR = os.path.dirname(__file__)
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_DIR, "templates"),)
 
 WSGI_APPLICATION = 'takeitboii.wsgi.application'
 
