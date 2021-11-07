@@ -61,7 +61,7 @@ ROOT_URLCONF = 'takeitboii.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'Templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,9 +73,7 @@ TEMPLATES = [
         },
     },
 ]
-PROJECT_DIR = os.path.dirname(__file__)
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_DIR, "templates"),)
+
 
 WSGI_APPLICATION = 'takeitboii.wsgi.application'
 
