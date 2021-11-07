@@ -88,7 +88,7 @@ def registerPageTR(request):
             messages.success(request, "Registration successful.")
             return redirect("home:index")
     context = {'form': form}
-    return render(request, 'Trainer/registerTR.html', context)
+    return render(request, "Trainer/registerTR.html", context)
 
 
 def courseInfo(request):
