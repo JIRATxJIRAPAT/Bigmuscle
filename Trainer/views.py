@@ -26,7 +26,7 @@ def index(request):
             if form.is_valid():
                 form.save()
         context2 = {'form': form}
-        return render(request, "Trainer/trainerprofile.html", context2)
+        return render(request, "trainer/trainerprofile.html", context2)
 
 
 def trainer_course(request):
