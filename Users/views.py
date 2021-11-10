@@ -32,15 +32,18 @@ def index(request):
             form = CustomerForm(instance=Customer1)
             tr = get_object_or_404(Customer, user=request.user).trainer
             tr_name = "None"
+            cus_track = "None"
             if tr is not None:
                 tr_name = tr.user
+                cus_track = get_object_or_404(Customer, user=request.user).track_customer
             if request.method == 'POST':
                 form = CustomerForm(
                     request.POST, request.FILES, instance=Customer1)
                 if form.is_valid():
                     form.save()
             context = {'form': form,
-                       'trainer': tr_name}
+                       'trainer': tr_name,
+                       'track': cus_track}
             return render(request, "users/userprofile.html", context)
 
 

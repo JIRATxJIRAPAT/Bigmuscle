@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from Users.models import Customer
 from .models import Course
 from Trainer.models import *
+from Tracking.models import Tracks
 
 
 def course_page(request):
@@ -40,7 +41,11 @@ def show_course(request, id):
             check_add = False
             check_remove = False
 
-    return render(request, 'courses/course_details.html', {'course_details': course_details, "check_add": check_add, "check_remove": check_remove, "listTr": listTr, })
+    return render(request, 'courses/course_details.html', {
+        'course_details': course_details, 
+        "check_add": check_add, 
+        "check_remove": check_remove, 
+        "listTr": listTr, })
 
 
 def apply(request, id):
@@ -56,6 +61,41 @@ def apply(request, id):
     return HttpResponseRedirect(reverse("Courses:select", args=(id,)))
 
 
+def selectTrainer(request, id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("Users:login"))
+    x = get_object_or_404(Course, pk=id)
+    tr = get_object_or_404(Course, pk=x.id).teach.all()
+    cus = Customer.objects.get(user=request.user)
+    if request.method == "POST":
+        cus = Customer.objects.filter(user=request.user)
+        addtr = request.POST["trainer"]
+        trainer = get_object_or_404(Trainer, pk=(addtr))
+        track = Tracks.objects.create(track_trainer=trainer)
+        cus.update(trainer=addtr, track_customer=track)
+        return HttpResponseRedirect(reverse("home:index"))
+    return render(request, 'courses/TRselect.html',
+                  {
+                      'trainer': tr,
+                      'course': x,
+                  })
+
+
+def removeCourse(request, id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("Users:login"))
+
+    x = get_object_or_404(Course, pk=id)
+    cus = Customer.objects.get(user=request.user)
+    if cus.owned == x:
+        cus = Customer.objects.filter(user=request.user)
+        cus.update(owned=None)
+        cus.update(trainer=None)
+        #Tracks.objects.filter(tracks_owner=cus).delete()
+        cus.update(track_customer=None)
+    return HttpResponseRedirect(reverse("Courses:course_details", args=(id,)))
+
+"""
 def selectTrainer(request, id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
@@ -86,3 +126,4 @@ def removeCourse(request, id):
         cus.update(owned=None)
         cus.update(trainer=None)
     return HttpResponseRedirect(reverse("Courses:course_details", args=(id,)))
+"""
