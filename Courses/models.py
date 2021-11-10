@@ -11,7 +11,7 @@ class Course(models.Model):
     teach = models.ManyToManyField(
         'Trainer.Trainer', related_name="teacher", blank=False)
     days = models.PositiveIntegerField(default=0)
-    pic = models.ImageField(null=True, blank=True)
+    pic = models.ImageField(null=True, blank=True,default="default-image.png")
 
     def __str__(self):
         return f"{self.name} {self.days}"

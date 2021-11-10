@@ -32,5 +32,5 @@ class Tracks(models.Model):
     track_trainer = models.OneToOneField('Trainer.Trainer',related_name="trainer",on_delete=models.CASCADE)
     all_program_status = models.BooleanField(default= False)
     day = models.PositiveIntegerField(default=0)
-    def str(self):
+    def __str__(self):
         return f"{self.track_trainer} {self.all_program_status}"

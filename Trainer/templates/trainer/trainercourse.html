@@ -123,29 +123,59 @@
                 <!-- /Breadcrumb -->
                 <main>
                     <div class="row gutters-sm">
-                        <div class="col-md-12">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <hr>
-                                    <div class="row">
 
-                                        <div class=" d-flex align-items-center ">
-                                            <h1>Trainer course</h1>
+                        <div class="card mb-3 col-md-12">
+                            <div class="card-body">
+                                <hr>
+                                <div class="row">
+
+                                    <div class=" col-lg-12 text-md-center">
+                                        <h1 class="fw-light">
+                                            Trainer course</h1>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class=" col-lg-6 mb-lg-3 ">
+                                    <h1 class="fw-light">
+                                        Course</h1>
+                                </div>
+
+                                <div class="col-12" style="background-color: #e2e2e2;">
+                                    <hr>
+                                    {%for i in all_course%}
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h4 style="margin-top: 10px;">{{i.name}}</h4>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <a class=" btn btn-primary m-2 "
+                                                href="{% url 'Courses:course_details'  i.id %}">Check Detail</a>
                                         </div>
                                     </div>
                                     <hr>
-                                    {%for i in all_course%}
-                                    <div class="col-md-5">
-                                        <h3>ddd{{i.name}}</h3>
-                                        <a href="{% url 'Trainer:courseInfo'%}">{{course}}</a><br>
-                                        {% empty %}
-                                        <h3>you have no course</h3>
-                                        {% endfor %}
+                                    {% empty %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            you dont have course
+                                        </div>
                                     </div>
+                                    <hr>
+                                    {% endfor %}
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="card col-md-12">
+                            <div class="card mb-5">
+                                <div class="card-body">
+
                                     <form method="POST" action="">
                                         {% csrf_token %}
                                         <div>
-                                            <label for="bmi">dis is ya course:</label>
                                             <select name='course'
                                                 onchange='if(this.value != 0) { this.form.submit(); }'>
                                                 <option value="0">------ALL COURSE YOU TEACHED------</option>
@@ -160,33 +190,25 @@
 
                                         </div><br>
                                     </form>
-
+                                    <hr>
+                                    <div class="col-12" style="background-color: #e2e2e2;">
+                                        {% if course_info %}
+                                        <h1>NAME : {{course_info.name}}</h1>
+                                        {%else%}
+                                        <h1>NAME : didnt select</h1>
+                                        {%endif%}
+                                        {%for i in customerList %}
+                                        <h1>Student: {{i.user}}
+                                            <a href="{% url 'Trainer:customerTrack' id=i.id%}">Check track</a><br>
+                                        </h1>
+                                        {%empty%}
+                                        <h1>Student: none</h1>
+                                        {%endfor%}
+                                        <hr>
+                                    </div>
                                 </div>
-                                <hr>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card mb-5">
-                            <div class="card-body">
-                                <hr>
-                                {% if course_info %}
-                                <h1>NAME : {{course_info.name}}</h1>
-                                {%else%}
-                                <h1>NAME : didnt select</h1>
-                                {%endif%}
-                                {%for i in customerList %}
-                                <h1>Student: {{i.user}}
-                                    <a href="{% url 'Trainer:customerTrack' id=i.id%}">Check track</a><br>
-                                </h1>
-                                {%empty%}
-                                <h1>Student: none</h1>
-                                {%endfor%}
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
                 </main>
 
 
