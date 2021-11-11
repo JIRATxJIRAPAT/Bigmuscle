@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'home',
     'about', 'News', 'feature',
     'django_cleanup.apps.CleanupConfig',
-    'Tracking','Trainer',
+    'Tracking','Trainer','administrator'
 ]
 
 MIDDLEWARE = [
