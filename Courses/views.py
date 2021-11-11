@@ -9,7 +9,7 @@ from Users.models import Customer
 from .models import Course
 from Trainer.models import *
 from Tracking.models import *
-
+from .forms import AppointmentForm
 
 def course_page(request):
 
@@ -71,7 +71,7 @@ def selectTrainer(request, id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
     course = get_object_or_404(Course, pk=id)
-    tr = get_object_or_404(Course, pk=x.id).teach.all()
+    tr = get_object_or_404(Course, pk=course.id).teach.all()
     cus = Customer.objects.get(user=request.user)
     if request.method == "POST":
         cus = Customer.objects.filter(user=request.user)
@@ -79,7 +79,7 @@ def selectTrainer(request, id):
         trainer = get_object_or_404(Trainer, pk=(addtr))
         track = Tracks.objects.create(track_trainer=trainer, day=course.days)
         cus.update(trainer=addtr, track_customer=track)
-        return HttpResponseRedirect(reverse("home:index"))
+        return HttpResponseRedirect(reverse("Courses:time",args=(id,)))
     return render(request, 'courses/TRselect.html',
                   {
                       'trainer': tr,
@@ -98,3 +98,14 @@ def removeCourse(request, id):
         cus.update(owned=None)
         cus.update(trainer=None)
     return HttpResponseRedirect(reverse("Courses:course_details", args=(id,)))
+
+
+def new_appointment(request,id):
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("home:index"))
+    else:
+        form = AppointmentForm()
+    return render(request, 'Courses/timeselect.html', {'form': form})
