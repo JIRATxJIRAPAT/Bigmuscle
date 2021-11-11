@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from Users.models import Customer
-from .models import Course
+from .models import Appointment, Course
 from Trainer.models import *
 from Tracking.models import *
 from .forms import AppointmentForm
@@ -102,9 +102,13 @@ def removeCourse(request, id):
 
 def new_appointment(request,id):
     if request.method == 'POST':
+        user = Customer.objects.get(user=request.user)
         form = AppointmentForm(request.POST)
         if form.is_valid():
-            form.save()
+            val = form.save(commit=False)
+            val.trainer = user.trainer
+            val.customer = user
+            val = form.save()
             return HttpResponseRedirect(reverse("home:index"))
     else:
         form = AppointmentForm()

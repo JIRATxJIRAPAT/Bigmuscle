@@ -34,10 +34,10 @@ class Appointment(models.Model):
         (8, '17:00 – 17:30'),
     )
 
-    trainer = models.ForeignKey("Trainer.Trainer",on_delete = models.CASCADE)
+    trainer = models.ForeignKey("Trainer.Trainer",on_delete = models.CASCADE,null=True,blank=True)
     date = models.DateField(help_text="YYYY-MM-DD")
     timeslot = models.IntegerField(choices=TIMESLOT_LIST)
-    customer = models.ForeignKey('Users.Customer',on_delete = models.CASCADE)
+    customer = models.ForeignKey('Users.Customer',on_delete = models.CASCADE,null=True,blank=True)
 
     def __str__(self):
         return f'{self.trainer} {self.timeslot}'
