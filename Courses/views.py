@@ -6,15 +6,50 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from Users.models import Customer
-from .models import Course
+from .models import Appointment, Course
 from Trainer.models import *
 from Tracking.models import *
-
+from .forms import AppointmentForm
+import re
 
 def course_page(request):
+    all_course_name = "nothing here"
+    print(all_course_name)
 
-    course_list = Course.objects.all()
-    return render(request, 'courses/course_list.html', {'course_list': course_list})
+    if request.method == "POST":
+        search_course = request.POST['search_course']
+        all_course_name = "i'm in"
+        course_list = Course.objects.all()
+        if search_course == "\w" :
+
+            return render(request, 'courses/course_list.html', {
+                'course_list': course_list,
+                'all_course_name': all_course_name
+                })
+        #split input to list
+        search_course = search_course.upper()
+
+        search_course = re.split(r'\s',search_course)
+
+
+        course_filtered = []
+
+        for j in search_course:
+            print(j)
+            for i in course_list:
+                if re.search(j, i.name.upper()):
+                    print(i.name.upper())
+                    course_filtered.append(i)
+
+        all_course_name = "done"
+        course_list = course_filtered
+
+    else:
+        course_list = Course.objects.all()
+    return render(request, 'courses/course_list.html', {
+        'course_list': course_list,
+        'all_course_name': all_course_name
+        })
 
 
 def show_course(request, id):
@@ -71,7 +106,7 @@ def selectTrainer(request, id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
     course = get_object_or_404(Course, pk=id)
-    tr = get_object_or_404(Course, pk=x.id).teach.all()
+    tr = get_object_or_404(Course, pk=course.id).teach.all()
     cus = Customer.objects.get(user=request.user)
     if request.method == "POST":
         cus = Customer.objects.filter(user=request.user)
@@ -79,7 +114,7 @@ def selectTrainer(request, id):
         trainer = get_object_or_404(Trainer, pk=(addtr))
         track = Tracks.objects.create(track_trainer=trainer, day=course.days)
         cus.update(trainer=addtr, track_customer=track)
-        return HttpResponseRedirect(reverse("home:index"))
+        return HttpResponseRedirect(reverse("Courses:timeslot",args=(id,)))
     return render(request, 'courses/TRselect.html',
                   {
                       'trainer': tr,
@@ -95,6 +130,32 @@ def removeCourse(request, id):
     cus = Customer.objects.get(user=request.user)
     if cus.owned == x:
         cus = Customer.objects.filter(user=request.user)
+        select = Appointment.objects.filter(customer__in=cus)
+        select1 = Tracks.objects.filter(tracks_owner__in = cus)
+        select.delete()
+        select1.delete()
         cus.update(owned=None)
         cus.update(trainer=None)
     return HttpResponseRedirect(reverse("Courses:course_details", args=(id,)))
+
+
+def new_appointment(request,id):
+    if request.method == 'POST':
+        user = Customer.objects.get(user=request.user)
+        form = AppointmentForm(request.POST)
+        x = get_object_or_404(Course, pk=id)
+        if form.is_valid():
+            val = form.save(commit=False)
+            val.trainer = user.trainer
+            val.customer = user
+            val = form.save()
+            return HttpResponseRedirect(reverse("home:index"))
+    else:
+        form = AppointmentForm()
+    return render(request, 'Courses/timeselect.html', {'form': form})
+
+""""
+def cancel_appointment(request,id):
+    select = Appointment.objects.filter(customer=request.user)
+    select.delete()
+    return HttpResponseRedirect(reverse("Courses:course_details", args=(id,)))"""

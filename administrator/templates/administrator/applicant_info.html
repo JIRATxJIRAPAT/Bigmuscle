@@ -1,0 +1,18 @@
+{% extends "home/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container">
+    {% for mem in select_user %}
+        <li>{{ mem.user.first_name }} {{mem.user.last_name}} </li>
+        <div>{{mem.pic}}</div>
+        <div>{{mem.bio}}</div>
+        <div>{{mem.tel}}</div>
+        <div>{{mem.specialist}}</div>
+        <a href="{% url 'administrator:approve'  mem.id %}">approve</a>
+        <a href="{% url 'administrator:decline'  mem.id %}">decline</a>
+    {% endfor %}
+    
+       
+    </div>
+{% endblock %}

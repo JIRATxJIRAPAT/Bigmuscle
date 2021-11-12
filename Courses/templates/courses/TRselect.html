@@ -7,7 +7,6 @@
     <h1>SELECT YOUR TR</h1>
 </div>
 
-<form method="POST" action="">
 
     <form method="POST">
         {% csrf_token %}
@@ -17,8 +16,6 @@
         </div>
         {% endfor %}
     </form>
-    {{ val }}
-</form>
 
 
 {% endblock %}

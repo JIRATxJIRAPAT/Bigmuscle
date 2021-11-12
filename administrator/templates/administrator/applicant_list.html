@@ -1,0 +1,15 @@
+{% extends "home/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container">
+        <h1>Job applicants</h1>
+    {% for mem in applicant %}
+        <li>
+        <a href="{% url 'administrator:applicant_info'  mem.id %}">{{ mem.user.first_name }} {{mem.user.last_name}} = {{mem.approve}} {{mem.id}}</a>
+        </li>
+    {% endfor %}
+    
+       
+    </div>
+{% endblock %}
