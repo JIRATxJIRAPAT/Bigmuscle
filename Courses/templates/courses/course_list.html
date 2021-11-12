@@ -1,81 +1,110 @@
+{% extends "home/layout.html" %} {% load static %} {% block body %}
 
-{% extends "home/layout.html" %}
-{% load static %}
-
-
-{% block body %}
-        
-            <div class=" container">
-                <div class="row">
-                    <div class="col ">
-                        <hr>
-                        <div class="d-flex flex-column flex-sm-row align-items-lg-center">
-                            <div class="py-3 py-sm-3 px-4 px-md-5 px-lg-4 px-xl-5 flex-fill">
-                                <form id="form-header-search" class>
-                                    <div class="form-group mb-0">
-                                        <div class=" row">
-                                            <div class="col-lg-1">
-                                                <span class="icon-inside-input">
-                                                    <i class="fas fa-search fa-lg"
-                                                        style="margin-left: 50px; margin-top: 18px; margin-left: auto;">
-
-                                                    </i>
-                                                </span>
-                                            </div>
-                                            <div class="col-lg-11 col-sm-9">
-                                                <input class=" form-control append-icon" type="search"
-                                                    placeholder="ค้นหาหลักสูตร..." aria-label="Search" value>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <hr>
-                            <h2>
-                                SELECT YOUR COURSE</h2>
-
-                            <hr>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="row cn-slider">
-                                {% for x in course_list %}
-                                <div class="col-md-4">
-                                    <div class="cn-img">
-                                        <img src="{{ x.pic.url }} " style="margin-top: 30px;
-                                        width: 90%;
-                                        height: 60%;">
-                                        <div class="cn-title">
-                                            <a href="{% url 'Courses:course_details'  x.id %}">{{ x.name}}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                    </div>
-
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <hr />
+      <div class="d-flex flex-column flex-sm-row align-items-lg-center">
+        <div class="py-3 py-sm-3 px-4 px-md-5 px-lg-4 px-xl-5 flex-fill">
+          <form id="form-header-search" class>
+            <div class="form-group mb-0">
+              <div class="row">
+                <div class="col-lg-1">
+                  <span class="icon-inside-input">
+                    <i
+                      class="fas fa-search fa-lg"
+                      style="
+                        margin-left: 50px;
+                        margin-top: 18px;
+                        margin-left: auto;
+                      "
+                    >
+                    </i>
+                  </span>
                 </div>
-                <hr>
+                <div class="col-lg-11 col-sm-9">
+                  <form method="POST" action=""></form>
+                  <form method="POST" action="">
+                    {% csrf_token %}
+                    <label for="your_name">search course </label>
+                    <h3>{{all_course_name}}</h3>
+
+                    <input
+                      class="form-control append-icon"
+                      name="search_course"
+                      placeholder="ค้นหาหลักสูตร..."
+                      aria-label="Search"
+                      id="search_course"
+                      type="text"
+                    />
+
+                    <button
+                      style="margin-left: 35%"
+                      type="submit"
+                      value="submit"
+                      class="btn btn-success btn-sm"
+                    >
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
-        
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <hr />
+        <h2>SELECT YOUR COURSE</h2>
+
+        <hr />
+      </div>
+      <div class="col-md-12">
+        <div class="row cn-slider">
+          {% for x in course_list %}
+          <div class="col-md-4">
+            <div class="cn-img">
+              <img
+                src="{{ x.pic.url }} "
+                style="margin-top: 30px; width: 90%; height: 60%"
+              />
+              <div class="cn-title">
+                <a href="{% url 'Courses:course_details'  x.id %}"
+                  >{{ x.name}}</a
+                >
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+</div>
 
 <head>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap"
+    rel="stylesheet"
+  />
 
-    <!-- CSS Libraries -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="lib/slick/slick.css" rel="stylesheet">
-    <link href="lib/slick/slick-theme.css" rel="stylesheet">
+  <!-- CSS Libraries -->
+  <link
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link href="lib/slick/slick.css" rel="stylesheet" />
+  <link href="lib/slick/slick-theme.css" rel="stylesheet" />
 
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+  <!-- Template Stylesheet -->
+  <link href="css/style.css" rel="stylesheet" />
 </head>
-
 
 {% endblock %}

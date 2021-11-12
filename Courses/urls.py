@@ -11,5 +11,6 @@ urlpatterns = [
     path("<int:id>/apply", views.apply, name="apply"),
     path("<int:id>/remove", views.removeCourse, name="remove"),
     path("<int:id>/apply/trainer", views.selectTrainer, name="select"),
-    path("<int:id>/apply/trainer/timeslot", views.new_appointment, name="time")
+    path("<int:id>/apply/trainer/timeslot", views.new_appointment, name="timeslot"),
+    #path("<int:id>/apply/trainer/timeslot/cancel", views.cancel_appointment, name="cancel"),
 ]

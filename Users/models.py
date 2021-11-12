@@ -16,7 +16,7 @@ class Customer(models.Model):
     trainer = models.ForeignKey('Trainer.Trainer', on_delete=models.CASCADE,
                                 related_name="my_trainer", null=True, blank=True)
     track_customer = models.OneToOneField(
-        'Tracking.Tracks', related_name="tracks_owner", on_delete=models.CASCADE, null=True, blank=True)
+        'Tracking.Tracks', related_name="tracks_owner", on_delete=models.SET_NULL, null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True)
 
     def __str__(self):
