@@ -14,7 +14,7 @@ class Course(models.Model):
     pic = models.ImageField(null=True, blank=True,default="default-image.png")
 
     def __str__(self):
-        return f"{self.name} {self.days}"
+        return f"{self.name}"
 
 
 class Appointment(models.Model):

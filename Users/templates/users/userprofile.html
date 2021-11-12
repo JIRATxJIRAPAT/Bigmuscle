@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <html>
-<script>
-    $("#profileImage").click(function (e) {
-        $("#imageUpload").click();
-    });
-</script>
 
 <head>
     <title>User Profile</title>
@@ -234,6 +229,7 @@
                                     Course List!</a>
                             </div>
                             {% endif %}
+
                         </div>
                         <hr>
 
@@ -247,32 +243,38 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3"><i
-                                        class="material-icons text-info mr-2">Track</i>Status</h6>
-                                <small>FIT</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
-                                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>SIT UP</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
-                                        aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Squirt jump</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
-                                        aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Maraton</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
-                                        aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>flex</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
-                                        aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                        class="material-icons text-info mr-2">Track</i>
+                                    <a href="{% url 'Users:edittrack'  %}">aaaaa
+
+                                    </a>
+                                </h6>
+
+
+                                {% for i in program %}
+
+                                <h6>
+
+                                </h6>
+                                <small>Day ID : {{i.id}} </small>
+                                {% if i.status %}
+                                <svg width="20px" height="20px" viewBox="-81 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <title>i-tick</title>
+                                    <path d="M64 261L96 229 149 282 250 160 286 192 153 350 64 261Z" />
+                                </svg>
+                                {% else %}
+                                <svg width="15px" height="15px" viewBox="-28 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <title>cancel</title>
+                                    <path
+                                        d="M64 388L196 256 64 124 96 92 228 224 360 92 392 124 260 256 392 388 360 420 228 288 96 420 64 388Z" />
+                                </svg>
+
+                                {% endif %}
+
+                                <a href="{% url 'Users:show_program'  i.id %}" ;>Check</a>
+
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -280,27 +282,23 @@
                         <div class="card h-100">
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3"><i
-                                        class="material-icons text-info mr-2">Calender {{track}}</i>
-
+                                        class="material-icons text-info mr-2">Calender </i></h6>
+                                <small>flex</small>
+                                <div class="progress mb-3" style="height: 5px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 3%"
+                                        aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
+
                 </div>
-
-
-
             </div>
+
         </div>
-
     </div>
-    </div>
-
-
-
-
-
-
-
 
 
 </body>
