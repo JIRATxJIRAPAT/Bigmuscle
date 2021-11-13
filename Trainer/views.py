@@ -8,7 +8,7 @@ from .forms import CreateUserTRForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import Trainer
 from Courses.models import Course
-from .forms import TrainerForm
+from .forms import TrainerForm,VideocallForm
 from Users.models import *
 # Create your views here.
 
@@ -110,3 +110,28 @@ def customerTrack(request, id):
     return render(request, "trainer/customerTrack.html", {
         "customer": customer,
     })
+"""
+def add_link(request):
+    form2 = VideocallForm()
+    
+        #link = request.POST["link"]
+    tr = Trainer.objects.get(user=request.user)
+        #tr.videocall_link.add(link)
+    if request.method == 'POST':
+        form2 = VideocallForm(request.POST)
+        if form2.is_valid():
+            print(form2)
+            form2.save()
+        return HttpResponseRedirect(reverse("Trainer:index"))
+    else:
+        form2 = VideocallForm()
+    context = {'form2': form2}
+    return render(request, "trainer/trainerProfile.html",context)
+"""
+def add_link(request):
+    tr = Trainer.objects.filter(user=request.user)
+    if request.method == 'POST':
+        link = request.POST["link"]
+        tr.update(videocall_link=link)
+        return HttpResponseRedirect(reverse("home:index"))
+    return render(request, "trainer/trainerProfile.html")

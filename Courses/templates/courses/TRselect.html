@@ -2,20 +2,74 @@
 
 {% block body %}
 
+<body>
+    <style>
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            border-radius: 50%;
+        }
+    </style>
 
-<div class="container">
-    <h1>SELECT YOUR TR</h1>
-</div>
+    <hr>
+    <div class=" container">
+        <div class="vg-page page-about" id="about">
+            <div class="row">
 
+                <div class="col-md-12">
+                    <h1>SELECT YOUR TR</h1>
+                </div>
+                <div class="col-md-12">
+                    <div class="slideshow-container">
 
-    <form method="POST">
-        {% csrf_token %}
-        {% for y in trainer %}
-        <div style="text-align: center;">
-        <input type="submit" name="trainer" value="{{y.id}}">
+                        <div style="text-align:center">
+                            <div class="row">
+                                <div class="col-md-3">
+                                </div>
+                                {{course.name}}
+                                {{trainer}}
+                                {{trainer.age}}
+                                {{trainer.gender}}
+                                {{trainer.bio}}
+                                {{trainer.specialist}}
+                                {{trainer.tel}}
+                                <img class="profile-pic" src="{{trainer.profile_pic.url}}">
+                                {{course.id}}
+                                {{count_tr}}
+                                <div style="text-align: right;">
+                                    <a href="{% url 'Courses:slidenext' course.id count_tr %}"
+                                        class="btn btn-primary">slide
+                                    </a>
+
+                                </div>
+                                <div style="text-align: left;">
+                                    <a href="{% url 'Courses:slideback' course.id count_tr %}"
+                                        class="btn btn-primary">slide
+                                    </a>
+
+                                </div>
+
+                            </div>
+                            <form method="POST">
+                                {% csrf_token %}
+
+                                {{y.age}}
+                                <div style="text-align: center;">
+                                    <input type="submit" name="trainer" value="{{trainer.id}}">
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% endfor %}
-    </form>
-
-
+    </div>
+    <hr>
+</body>
 {% endblock %}

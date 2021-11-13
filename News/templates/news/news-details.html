@@ -32,29 +32,26 @@
     </head>
   {% block body  %}
 
-          
+            <hr>
             <div class="container"  >
               {% if single_post %}
                   <body>
                   <br></br>
                   <br></br>
                   <h1 align = 'center'>{{ single_post.title }}</h1>
+                  <br>  
                   <div align="center">
                   <img src="{{single_post.pic1.url}}"  class="center"  width="600" height="400">
                   
                   </div>
-
-                  <br></br>
                   
                   <br></br>
                   <p>{{ single_post.context | safe }}</p>
                   </body>
-              
+                  <br>
                   
               {% endif %}
             </div>
             
-
-
   {% endblock %}
 </html>

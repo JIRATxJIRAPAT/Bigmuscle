@@ -1,0 +1,20 @@
+{% extends "home/layout.html" %}
+
+{% block body %}
+
+
+<div class="container">
+    <h1>Report {{trainer}}</h1>
+
+
+
+<form method="POST" class="appointment-form">{% csrf_token %}
+    {{ form.as_ul }}
+    
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="reset" class="btn btn-default">Reset</button>
+    
+</form>
+
+</div>
+{% endblock %}
