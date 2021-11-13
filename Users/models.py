@@ -26,3 +26,23 @@ class Customer(models.Model):
     # def create_user_picks(sender, instance, created, **kwargs):
     #   if created:
     #        Customer.objects.create(user=instance)
+
+
+class Report(models.Model):
+
+    REPORT_LIST = (
+        ('Harassment', 'harassment'),
+        ('Bad word', 'use bad word'),
+        ('Threaten', 'threaten'),
+        ('Hate speeches', 'hate speeches'),
+        ('Not helpful', 'advice not helpful'),
+    )
+
+    trainer = models.ForeignKey('Trainer.Trainer', on_delete=models.CASCADE, related_name="re_trainer", null=True, blank=True )
+    reason = models.CharField(max_length=30,choices=REPORT_LIST)
+    context = models.TextField()
+    date = models.DateField(auto_now=False,auto_now_add=True)
+    evidence = models.ImageField(null=True,blank=True)
+    report_by = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="reportby", null=True, blank=True )
+    def __str__(self):
+        return f"{self.trainer} {self.reason}"

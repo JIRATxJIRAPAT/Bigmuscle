@@ -1,0 +1,18 @@
+{% extends "home/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container">
+    {% for report in select_report %}
+        <h2>{{ report.trainer }} </h2>
+        <li>reason: {{report.reason}}</li>
+        <li>context: {{report.context}}</li>
+        <li>report date: {{report.date}}</li>
+        <li>report by: {{report.report_by}}</li>
+        <li>evidence : picture / กำลังทำ</li>
+        
+    {% endfor %}
+    
+       
+    </div>
+{% endblock %}

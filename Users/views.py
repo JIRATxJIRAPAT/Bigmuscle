@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 
 from Trainer.models import Trainer
-from .forms import CreateUserForm, CustomerForm
+from .forms import CreateUserForm, CustomerForm,ReportForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import Customer
 from Tracking.models import *
@@ -176,3 +176,18 @@ def addprogram(request):
             end_date=x, start_date=x, day=count_day)
         select_track.day_program.add(select_add)
     return HttpResponseRedirect(reverse("Users:edittrack"))
+
+
+def report(request):
+    form = ReportForm()
+    user = Customer.objects.get(user=request.user)
+    re_trainer = user.trainer
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            val = form.save(commit=False)
+            val.trainer = user.trainer
+            val.report_by = user
+            val = form.save()
+            return HttpResponseRedirect(reverse("Users:userprofile"))
+    return render(request, 'users/report.html', {'form': form,'trainer':re_trainer})

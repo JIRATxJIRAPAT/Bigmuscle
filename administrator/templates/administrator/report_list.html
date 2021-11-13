@@ -1,0 +1,15 @@
+{% extends "home/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="container">
+        <h1>Report List</h1>
+    <br>
+    {% for mem in report %}
+    <li><a href="{% url 'administrator:report_info'  mem.id %}">{{ mem.trainer }} report for {{mem.reason}} reason / report by {{mem.report_by}}</li>
+        
+    {% endfor %}
+    
+       
+    </div>
+{% endblock %}

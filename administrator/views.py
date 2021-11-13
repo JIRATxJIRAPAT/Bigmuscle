@@ -3,9 +3,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from Trainer.models import Trainer
+from News.forms import CreateNewsForm
+from Users.models import *
 
 # job application
-
 def applicant_list(request):
     if request.user.is_superuser:
         applicant = Trainer.objects.all().filter(approve=False)
@@ -29,3 +30,27 @@ def decline(request,id):
 
 # News sections
 
+def create_news(request):
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = CreateNewsForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse("home:index"))
+        else:
+            form = CreateNewsForm()
+        return render(request, 'administrator/create_news.html', {'form': form})
+    else:
+        return HttpResponseRedirect(reverse("home:index"))
+
+# Report system
+def report_list(request):
+    if request.user.is_superuser:
+        report = Report.objects.all()
+        return render(request, 'administrator/report_list.html', {'report': report})
+    
+    return HttpResponseRedirect(reverse("home:index"))
+
+def report_info(request,id):
+    select_report = Report.objects.filter(id=id)
+    return render(request, 'administrator/report_info.html', {'select_report': select_report})

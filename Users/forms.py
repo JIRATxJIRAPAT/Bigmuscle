@@ -19,3 +19,9 @@ class CustomerForm(ModelForm):
         model = Customer
         fields = ['profile_pic', ]
 
+
+class ReportForm(ModelForm):
+    class Meta:
+        model = Report
+        fields = ['reason','context','evidence']
+

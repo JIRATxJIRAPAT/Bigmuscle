@@ -15,6 +15,7 @@ urlpatterns = [
          views.track_remove, name="trackremove"),
     path('edittrack', views.edittrack, name="edittrack"),
     path("addprogram", views.addprogram, name="addprogram"),
+    path("report/",views.report,name="report"),
 
 ]
 
