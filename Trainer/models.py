@@ -13,7 +13,9 @@ class Trainer(models.Model):
     specialist = models.CharField(max_length=100)
     tel = models.CharField(max_length=10, null=True)
     approve = models.BooleanField(default=False)
-    profile_pic = models.ImageField(null=True, blank=True)
+    profile_pic = models.ImageField(null=True, blank=True, default="trainer_default_pic.jpg")
+        
+    videocall_link = models.CharField(max_length=200,null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"

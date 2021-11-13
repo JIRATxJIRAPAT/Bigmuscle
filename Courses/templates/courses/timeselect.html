@@ -1,21 +1,31 @@
-
-
 {% extends "home/layout.html" %}
 
 {% block body %}
+<hr>
+<div class=" container">
+    <div class="panel panel-default py-5">
+        <div class="panel-body">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
 
-<div class="panel panel-default">
-    <div class="panel-body">
-        <section id="form-wrapper">
-            <form method="POST" class="appointment-form">{% csrf_token %}
-                {{ form.date }}
-                {{ form.timeslot }}
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button type="reset" class="btn btn-default">Reset</button>
-                
-            </form>
-        </section>
+                    </div>
+                    <div class="col-lg-6">
+                        <section id="form-wrapper">
+                            <form method="POST" class="appointment-form">{% csrf_token %}
+                                {{ form.date }}
+                                {{ form.timeslot }}
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="reset" class="btn btn-default">Reset</button>
+
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<hr>
 {% endblock %}

@@ -11,4 +11,5 @@ urlpatterns = [
     path('info', views.courseInfo, name="courseInfo"),
     path('apply', views.registerPageTR, name="apply"),
     path('track/<int:id>', views.customerTrack, name="customerTrack"),
+    path("addlink", views.add_link, name="addlink"),
 ]

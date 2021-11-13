@@ -6,5 +6,6 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title',)
     prepopulated_fields = {'slug': ('title',)} 
 
-
-admin.site.register(News, PostAdmin)
+class showdateAdmin(admin.ModelAdmin):
+    readonly_fields = ('date',)
+admin.site.register(News, showdateAdmin)

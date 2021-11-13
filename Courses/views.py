@@ -12,6 +12,7 @@ from Tracking.models import *
 from .forms import AppointmentForm
 import re
 
+
 def course_page(request):
     all_course_name = "nothing here"
     print(all_course_name)
@@ -20,17 +21,16 @@ def course_page(request):
         search_course = request.POST['search_course']
         all_course_name = "i'm in"
         course_list = Course.objects.all()
-        if search_course == "\w" :
+        if search_course == "\w":
 
             return render(request, 'courses/course_list.html', {
                 'course_list': course_list,
                 'all_course_name': all_course_name
-                })
-        #split input to list
+            })
+        # split input to list
         search_course = search_course.upper()
 
-        search_course = re.split(r'\s',search_course)
-
+        search_course = re.split(r'\s', search_course)
 
         course_filtered = []
 
@@ -49,7 +49,7 @@ def course_page(request):
     return render(request, 'courses/course_list.html', {
         'course_list': course_list,
         'all_course_name': all_course_name
-        })
+    })
 
 
 def show_course(request, id):
@@ -61,7 +61,7 @@ def show_course(request, id):
         except Trainer.DoesNotExist:
             checkTr = None
         if checkTr is None:
-            customer1 = get_object_or_404(Customer,user=request.user)
+            customer1 = get_object_or_404(Customer, user=request.user)
             customer_owned = customer1.owned
             course_details = Course.objects.get(id=id)
             x = get_object_or_404(Course, pk=id)
@@ -83,9 +83,9 @@ def show_course(request, id):
                 else:
                     check_add = False
                     check_remove = False
-        else: 
+        else:
             course_details = Course.objects.get(id=id)
-            return render(request,'courses/course_details.html' , {'course_details': course_details,'checkTr':checkTr})
+            return render(request, 'courses/course_details.html', {'course_details': course_details, 'checkTr': checkTr})
     return render(request, 'courses/course_details.html', {'course_details': course_details, "check_add": check_add, "check_remove": check_remove, "listTr": listTr, })
 
 
@@ -107,6 +107,10 @@ def selectTrainer(request, id):
         return HttpResponseRedirect(reverse("Users:login"))
     course = get_object_or_404(Course, pk=id)
     tr = get_object_or_404(Course, pk=course.id).teach.all()
+
+    count_tr = 1
+    tr_index = tr[count_tr-1]
+
     cus = Customer.objects.get(user=request.user)
     if request.method == "POST":
         cus = Customer.objects.filter(user=request.user)
@@ -114,11 +118,15 @@ def selectTrainer(request, id):
         trainer = get_object_or_404(Trainer, pk=(addtr))
         track = Tracks.objects.create(track_trainer=trainer, day=course.days)
         cus.update(trainer=addtr, track_customer=track)
-        return HttpResponseRedirect(reverse("Courses:timeslot",args=(id,)))
+
+        return HttpResponseRedirect(reverse("Courses:timeslot", args=(id,)))
+
     return render(request, 'courses/TRselect.html',
                   {
-                      'trainer': tr,
+                      'trainer': tr_index,
                       'course': course,
+                      "count_tr": count_tr
+
                   })
 
 
@@ -131,7 +139,12 @@ def removeCourse(request, id):
     if cus.owned == x:
         cus = Customer.objects.filter(user=request.user)
         select = Appointment.objects.filter(customer__in=cus)
-        select1 = Tracks.objects.filter(tracks_owner__in = cus)
+        select1 = Tracks.objects.filter(tracks_owner__in=cus)
+        select2 = get_object_or_404(
+            Tracks, tracks_owner__in=cus).day_program.all()
+
+        for i in select2:
+            i.delete()
         select.delete()
         select1.delete()
         cus.update(owned=None)
@@ -139,7 +152,7 @@ def removeCourse(request, id):
     return HttpResponseRedirect(reverse("Courses:course_details", args=(id,)))
 
 
-def new_appointment(request,id):
+def new_appointment(request, id):
     if request.method == 'POST':
         user = Customer.objects.get(user=request.user)
         form = AppointmentForm(request.POST)
@@ -153,6 +166,70 @@ def new_appointment(request,id):
     else:
         form = AppointmentForm()
     return render(request, 'Courses/timeselect.html', {'form': form})
+
+
+def slidenext(request, course_id, count_tr):
+    print(course_id, "aaaaaaaaaaaaaaa")
+    count_tr += 1
+    course = get_object_or_404(Course, pk=course_id)
+    tr = get_object_or_404(Course, pk=course.id).teach.all()
+    select_tr = counttrselect(count_tr, tr)
+    tr_index = tr[select_tr-1]
+    if request.method == "POST":
+        cus = Customer.objects.filter(user=request.user)
+        addtr = request.POST["trainer"]
+        trainer = get_object_or_404(Trainer, pk=(addtr))
+        track = Tracks.objects.create(track_trainer=trainer, day=course.days)
+        cus.update(trainer=addtr, track_customer=track)
+
+        return HttpResponseRedirect(reverse("Courses:timeslot", args=(course_id,)))
+
+    return render(request, 'courses/TRselect.html',
+                  {
+                      'trainer': tr_index,
+                      'course': course,
+                      "count_tr": select_tr
+                  })
+
+
+def slideback(request, course_id, count_tr):
+
+    course = get_object_or_404(Course, pk=course_id)
+    tr = get_object_or_404(Course, pk=course.id).teach.all()
+    if (count_tr == 1):
+        count_tr = len(tr)
+    else:
+        count_tr -= 1
+    select_tr = counttrselect(count_tr, tr)
+    tr_index = tr[select_tr-1]
+    if request.method == "POST":
+        cus = Customer.objects.filter(user=request.user)
+        addtr = request.POST["trainer"]
+        print(addtr)
+        trainer = get_object_or_404(Trainer, pk=(addtr))
+        track = Tracks.objects.create(track_trainer=trainer, day=course.days)
+        cus.update(trainer=addtr, track_customer=track)
+
+        return HttpResponseRedirect(reverse("Courses:timeslot", args=(course_id,)))
+
+    return render(request, 'courses/TRselect.html',
+                  {
+                      'trainer': tr_index,
+                      'course': course,
+                      "count_tr": count_tr
+                  })
+
+
+def counttrselect(count_tr, tr):
+
+    if count_tr < 1:
+        print("reach here ")
+        count_tr = (len(tr))
+    if count_tr >= len(tr)+1:
+        count_tr = 1
+    print(count_tr)
+    return count_tr
+
 
 """"
 def cancel_appointment(request,id):

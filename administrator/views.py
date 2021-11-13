@@ -54,3 +54,12 @@ def report_list(request):
 def report_info(request,id):
     select_report = Report.objects.filter(id=id)
     return render(request, 'administrator/report_info.html', {'select_report': select_report})
+
+#profile
+def index(request):
+
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("Users:login"))
+    else:
+        if request.user.is_superuser:
+            return render(request, "administrator/adminprofile.html")

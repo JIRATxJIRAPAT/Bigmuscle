@@ -244,45 +244,96 @@
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3"><i
                                         class="material-icons text-info mr-2">Track</i>
-                                    <a href="{% url 'Users:edittrack'  %}">aaaaa
 
-                                    </a>
-                                </h6>
+                                    {% if program_check %}
+
+                                    <small>
+                                        <a href="{% url 'Users:edittrack'  %}">aaaaa</a></small>
+
+                                    {%else%}
+
+                                    <small>NO</small>
+                                    {%endif%}
 
 
-                                {% for i in program %}
 
-                                <h6>
+                                    {% if program_check %}
+                                    {% for i in program %}
 
-                                </h6>
-                                <small>Day ID : {{i.id}} </small>
-                                {% if i.status %}
-                                <svg width="20px" height="20px" viewBox="-81 0 512 512"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <title>i-tick</title>
-                                    <path d="M64 261L96 229 149 282 250 160 286 192 153 350 64 261Z" />
-                                </svg>
-                                {% else %}
-                                <svg width="15px" height="15px" viewBox="-28 0 512 512"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <title>cancel</title>
-                                    <path
-                                        d="M64 388L196 256 64 124 96 92 228 224 360 92 392 124 260 256 392 388 360 420 228 288 96 420 64 388Z" />
-                                </svg>
+                                    <h6>
 
-                                {% endif %}
+                                    </h6>
+                                    <small>Day ID : {{i.id}} </small>
+                                    {% if i.status %}
+                                    <svg width="20px" height="20px" viewBox="-81 0 512 512"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <title>i-tick</title>
+                                        <path d="M64 261L96 229 149 282 250 160 286 192 153 350 64 261Z" />
 
-                                <a href="{% url 'Users:show_program'  i.id %}" ;>Check</a>
+                                    </svg>
+                                    {% else %}
+                                    <svg width="15px" height="15px" viewBox="-28 0 512 512"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <title>cancel</title>
+                                        <path
+                                            d="M64 388L196 256 64 124 96 92 228 224 360 92 392 124 260 256 392 388 360 420 228 288 96 420 64 388Z" />
+                                    </svg>
 
-                                {% endfor %}
+                                    {% endif %}
+                                    <small>
+                                        <a href="{% url 'Users:show_program' i.id %}">check</a></small>
+
+
+                                    {% endfor %}
+
+
+                                    {%else %}
+                                    <small>
+                                        you didnt select course
+                                    </small>
+                                    {% endif %}
+
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
+
                                 <h6 class="d-flex align-items-center mb-3"><i
                                         class="material-icons text-info mr-2">Calender </i></h6>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                  <th scope="col">date</th>
+                                                  <th scope="col">status</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr>
+                                                  <th scope="row">1</th>
+                                                  <td>Mark</td>
+                                                  
+                                                </tr>
+                                                <tr>
+                                                  <th scope="row">2</th>
+                                                  <td>Jacob</td>
+                                                  
+                                                </tr>
+                                                <tr>
+                                                  <th scope="row">3</th>
+                                                  <td>{{request.user.customer.track_customer}}</td>
+                                                  
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td >Larry the Bird</td>
+                                                    
+                                                  </tr>
+                                               
+                                              </tbody>
+                                            
+                                          </table>
                                 <small>flex</small>
                                 <div class="progress mb-3" style="height: 5px">
                                     <div class="progress-bar bg-primary" role="progressbar" style="width: 3%"

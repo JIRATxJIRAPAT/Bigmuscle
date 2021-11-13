@@ -115,7 +115,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'home:index' %}">Home</a></li>
                     <li class="breadcrumb-item "><a href="{% url 'Users:userprofile' %}">User Profile</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Day ID {{id}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">Track</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
@@ -130,7 +130,7 @@
 
                                 {% if check_context %}
                                 {{program}}
-                                <div class="col-sm-7 ">
+                                <div class="col-lg-12 col-md-12 ">
                                     <form method="POST" action="{% url 'Users:addprogram' %}" id="nameform">
                                         {% csrf_token %}
                                         <label for="day_id">day_id:</label>
@@ -140,51 +140,60 @@
                                     </form>
 
                                 </div>
-                                {% for i in programlist %}
-
-                                <div class="col-sm-7 ">
-                                    <small>Day ID : {{i.id}} </small>
-                                    {% if i.status %}
-                                    <svg width="20px" height="20px" viewBox="-81 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <title>i-tick</title>
-                                        <path d="M64 261L96 229 149 282 250 160 286 192 153 350 64 261Z" />
-                                    </svg>
-                                    {% else %}
-                                    <svg width="15px" height="15px" viewBox="-28 0 512 512"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <title>cancel</title>
-                                        <path
-                                            d="M64 388L196 256 64 124 96 92 228 224 360 92 392 124 260 256 392 388 360 420 228 288 96 420 64 388Z" />
-                                    </svg>
-
-                                    {% endif %}
-
-                                    <a href="{% url 'Users:show_program'  i.id %}">Check</a>
-
-                                    {% endfor %}
-                                </div>
-                                {% else %}
-                                <div class="col-sm-7 ">
-                                    <medium>
-                                        you dont have program
-                                    </medium>
-                                    <form method="POST" action="{% url 'Users:addprogram' %}" id="nameform">
-                                        {% csrf_token %}
-                                        <label for="day_id">day_id:</label>
-                                        <input type="number" required="required" id="day_id" name="day_id"><br><br>
-
-                                    </form>
-                                    <button type="submit" form="nameform" value="Submit">Submit</button>
-                                </div>
-                                {% endif %}
                             </div>
+                            <div class="row">
+                                <div class="col-lg-7 ">
+                                    <div class="col-md-3">
+                                        {% for i in programlist %}
+
+
+
+                                        <small>Day ID : {{i.day}} </small>
+                                        {% if i.status %}
+                                        <svg width="20px" height="20px" viewBox="-81 0 512 512"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <title>i-tick</title>
+                                            <path d="M64 261L96 229 149 282 250 160 286 192 153 350 64 261Z" />
+                                        </svg>
+                                        {% else %}
+                                        <svg width="15px" height="15px" viewBox="-28 0 512 512"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <title>cancel</title>
+                                            <path
+                                                d="M64 388L196 256 64 124 96 92 228 224 360 92 392 124 260 256 392 388 360 420 228 288 96 420 64 388Z" />
+                                        </svg>
+
+
+                                        {% endif %}
+
+                                        <small> <a href="{% url 'Users:show_program'  i.id %}">Check</a></small>
+                                        <small> <a href="{% url 'Users:remove_program'  i.id %}">Check</a></small>
+                                        <p></p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="col-sm-7 ">
+                                <medium>
+                                    you dont have program
+                                </medium>
+                                <form method="POST" action="{% url 'Users:addprogram' %}" id="nameform">
+                                    {% csrf_token %}
+                                    <label for="day_id">day_id:</label>
+                                    <input type="number" required="required" id="day_id" name="day_id"><br><br>
+
+                                </form>
+                                <button type="submit" form="nameform" value="Submit">Submit</button>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
+
+    </div>
 
     </div>
     </div>

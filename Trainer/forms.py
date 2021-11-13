@@ -18,3 +18,9 @@ class TrainerForm(ModelForm):
     class Meta:
         model = Trainer
         fields = ['profile_pic', ]
+
+
+class VideocallForm(ModelForm):
+    class Meta:
+        model = Trainer
+        fields = ['videocall_link',]

@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from .models import *
+from Tracking.models import *
 
 
 class CreateUserForm(UserCreationForm):
@@ -25,3 +26,7 @@ class ReportForm(ModelForm):
         model = Report
         fields = ['reason','context','evidence']
 
+class WorkoutForm(ModelForm):
+    class Meta:
+        model = Workout
+        fields = ['exercise', 'reps', 'sets', ]
