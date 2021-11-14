@@ -335,19 +335,19 @@
                     
 
                 </div>
-                    <!---->
+                    <!--<input name="link"type="link" id="link" placeholder="your link">-->
                     
-                    <button class="open-button" onclick="openForm()">Open Form</button>
+                    <button class="open-button" onclick="openForm()">Add link</button>
                     <div class="form-popup" id="myForm">
                         
                         <form method="POST" action="" class="form-container">
                         {% csrf_token %}
                           
-                          <a class="btn btn-success" href="{% url 'Trainer:addlink' %}" >addlink</a>
-                          <input name="link"type="link" id="link" placeholder="your link">
+                          <a class="btn btn-success" href="{% url 'Trainer:addlink' %}" >update</a>
+                          {{form1.as_p}}
                           <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                         </form>
-                      
+                        
                     </div>
             
                 </div>

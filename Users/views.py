@@ -7,8 +7,10 @@ from django.contrib import messages
 from Trainer.models import Trainer
 from .forms import CreateUserForm, CustomerForm, WorkoutForm,ReportForm
 from .models import Customer
+from Courses.models import Appointment
 from Tracking.models import *
 import datetime
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -222,3 +224,10 @@ def report(request):
             val = form.save()
             return HttpResponseRedirect(reverse("Users:userprofile"))
     return render(request, 'users/report.html', {'form': form,'trainer':re_trainer})
+
+def videocall_noti(request):
+    x = Customer.objects.get(user=request.user)
+    user = x.trainer.id 
+    y = Trainer.objects.get(id=user)
+    z = y.videocall_link
+    return render(request, "users/userprofile.html", {'link':z})

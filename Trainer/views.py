@@ -21,12 +21,13 @@ def index(request):
         checkTr = Trainer.objects.get(user=request.user)
         form = TrainerForm(instance=checkTr)
         if request.method == 'POST':
-            form = TrainerForm(
-                request.POST, request.FILES, instance=checkTr)
+            form = TrainerForm( request.POST, request.FILES, instance=checkTr)
             if form.is_valid():
                 form.save()
         context2 = {'form': form}
         return render(request, "trainer/trainerProfile.html", context2)
+        
+
 
 
 def trainer_course(request):
@@ -127,7 +128,7 @@ def add_link(request):
         form2 = VideocallForm()
     context = {'form2': form2}
     return render(request, "trainer/trainerProfile.html",context)
-"""
+
 def add_link(request):
     tr = Trainer.objects.filter(user=request.user)
     if request.method == 'POST':
@@ -135,3 +136,14 @@ def add_link(request):
         tr.update(videocall_link=link)
         return HttpResponseRedirect(reverse("home:index"))
     return render(request, "trainer/trainerProfile.html")
+"""
+def add_link(request):
+    form = VideocallForm()
+    tr = Trainer.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = VideocallForm(request.POST)
+        if form.is_valid():
+            tr.videocall_link = form.cleaned_data['link']
+            tr.save()
+            return HttpResponseRedirect(reverse("Trainer:index"))
+    return render(request, "trainer/trainerProfile.html",{'form1':form})
