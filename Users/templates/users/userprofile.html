@@ -263,7 +263,8 @@
                                     <h6>
 
                                     </h6>
-                                    <small>Day ID : {{i.id}} </small>
+                                    <small>Program id: {{i.id}} start:{{i.start_date}} end:{{i.end_date}}</small>
+                                    <hr>
                                     {% if i.status %}
                                     <svg width="20px" height="20px" viewBox="-81 0 512 512"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -310,27 +311,22 @@
                                                 </tr>
                                               </thead>
                                               <tbody>
+                                                {% if program_check %}
+                                                {% for i in program %}
                                                 <tr>
-                                                  <th scope="row">1</th>
-                                                  <td>Mark</td>
+                                                  <th scope="row">{{i.start_date}}</th>
+                                                {% if i.status == True %}
+                                                <td style="text-shadow: 1px 2px 2px #FFCC00;;">&#9989</td>
+                                                {% else %}
+                                                <td style="text-shadow: 1px 2px 2px #FFCC00;">&#9940</td>
+                                                {% endif %}
                                                   
                                                 </tr>
-                                                <tr>
-                                                  <th scope="row">2</th>
-                                                  <td>Jacob</td>
-                                                  
-                                                </tr>
-                                                <tr>
-                                                  <th scope="row">3</th>
-                                                  <td>{{request.user.customer.track_customer.day_program.status}}</td>
-                                                  
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">4</th>
-                                                    <td >Larry the Bird</td>
-                                                    
-                                                  </tr>
-                                               
+                                                {% empty %}
+                                                <small> no program</small>
+                                                
+                                                {% endfor %}
+                                                {% endif %}
                                               </tbody>
                                             
                                           </table>

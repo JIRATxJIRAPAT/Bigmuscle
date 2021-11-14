@@ -13,11 +13,11 @@ class Customer(models.Model):
     weight = models.FloatField(default=0)
     height = models.FloatField(default=0)
     bmi = models.FloatField(default=0)
-    trainer = models.ForeignKey('Trainer.Trainer', on_delete=models.CASCADE,
-                                related_name="my_trainer", null=True, blank=True)
+    trainer = models.ForeignKey('Trainer.Trainer', on_delete=models.CASCADE,related_name="my_trainer", null=True, blank=True)
+                
     track_customer = models.OneToOneField(
         'Tracking.Tracks', related_name="tracks_owner", on_delete=models.SET_NULL, null=True, blank=True)
-    profile_pic = models.ImageField(null=True, blank=True)
+    profile_pic = models.ImageField(null=True, blank=True, default="user_default_pic.jfif")
 
     def __str__(self):
         return f"{self.user} {self.id}"

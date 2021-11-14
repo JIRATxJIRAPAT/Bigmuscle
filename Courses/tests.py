@@ -4,78 +4,80 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.db.models import Max
 from .models import Course
-
+from Trainer.models import Trainer
+from Users.models import Customer
+from .forms import AppointmentForm
 
 class CoursesViewTestCase(TestCase):
 
     def setUp(self):
+        
         password = make_password('1234')
-        Course.objects.create(name="dd",info="dd",teach="T1234")
-        User.objects.create(username = "user1" , password = password , email = "user2@example.com")
-
-
-    def test_authenticate_Course_page(self):
-
-        user = User.objects.get(username = "user1")
-
-        c = Client()
-        c.force_login(user)
-        response = c.get(reverse("Courses:course_list"))
-        self.assertEqual(response.status_code , 200)
-
-
-    def test_valid_Course_page(self):
-
-        c = Client()
-        s = Course.objects.first()
-        response = c.get(reverse("Courses:course_page"))
-        self.assertEqual(response.status_code,200)
-
-    
-    def test_Course_list_View_context(self):
-        s = Course.objects.first()
-        c = Client()
-        response = self.client.get(reverse('Courses:course_page'))
-
-
-    def test_valid_newsdetail_page(self):
-        """valid  detailpage should return status code 200"""
-        c = Client()
-        s = Course.objects.get(id=id)
-        response = c.get(reverse("Courses:course_details", args=(s.id,)))
-        self.assertEqual(response.status_code,200)
-
-
-    def test_guest_user_cannot_apply_course(self):
-        """ guest cannot apply course """
-        user = User.objects.create(username = "user2" , password = "1234" , email = "user2@example.com")
-        s = Course.objects.first()
-
-        c = Client()
-        response = c.get(reverse('Courses:apply' ,args=(s.name,)))
-        self.assertEqual(s.teach.count(),0)
-
-
-
-    def test_authenticated_user_can_apply_course(self):
-        """ authenticated user can apply course """
-        user = User.objects.create(username="user2",password="1234",email="user2@gmail.com")
-        s = Course.objects.first()
-
-        c = Client()
-        c.force_login(user)
-        response = c.get(reverse('Courses:apply' ,args=(s.name,)))
-        self.assertEqual(s.teach.count(),1)
-
-
-
-    def test__authenticated_user_can_remove_course(self):
-        """ authenticated user can remove course """
-        user = User.objects.create(username="user2",password="1234",email="user2@gmail.com")
-        s = Course.objects.first()
+        user1 = User.objects.create(username = "user1" , password = password , email = "user1@example.com")
+        tr1 = User.objects.create(username = "user2" , password = password , email = "user2@example.com")
+        Course.objects.create(name="subj1",info="info")
+        Customer.objects.create(user=user1)
+        Trainer.objects.create(user = tr1 , age=30,gender='male',bio="thai",specialist="cardio",tel="0617349815",approve=True)
+        subj1 = Course.objects.first()
+        #subj1.teach.set(tr1)
+        
         
 
+    def test_can_view_course_list(self):
+        c = Client()
+        response = c.get(reverse("Courses:course_list"))
+        self.assertEqual(response.status_code , 200)
+    
+    def test_can_view_course_detail(self):
+        """ login can view detail""" 
+        user = Customer.objects.first()
+        course = Course.objects.first().id
+        c = Client()
+        c.force_login(user.user)
+        response = c.get(reverse("Courses:course_details", args=(course,)))
+        self.assertEqual(response.status_code , 200)
+
+    def test_notlogin_cannot_view_course_detail(self):
+        """not login cannot view detail""" 
+        c = Client()
+        course = Course.objects.first().id
+        response = c.get(reverse("Courses:course_details", args=(course,)))
+        self.assertEqual(response.status_code , 302)
+
+   
+    def test_authenticated_user_can_apply_course(self):
+        """ not finish"""
+        user = Customer.objects.first()
+        course = Course.objects.first().id
         c = Client()
         c.force_login(user)
-        response = c.get(reverse('Courses:removeCourse' ,args=(s.name,)))
-        self.assertEqual(s.teach.count(),0)
+        response = c.get(reverse('Courses:apply' ,args=(course,)))
+        self.assertEqual(response.status_code , 200)
+
+    def test_nonauthenticated_user_cannot_apply_course(self):
+        user = Customer.objects.first()
+        course = Course.objects.first().id
+        c = Client()
+        response = c.get(reverse('Courses:apply' ,args=(course,)))
+        self.assertEqual(response.status_code , 200)
+
+    def test_nonauthenticated_user_cannot_select_trainer(self):
+        user = Customer.objects.first()
+        course = Course.objects.first().id
+        c = Client()
+        response = c.get(reverse('Courses:select' ,args=(course,)))
+        self.assertEqual(response.status_code , 302)
+
+    def test_user_can_appointment_trainer(self):
+        """useless"""
+        user = Customer.objects.first()
+        tr = Trainer.objects.first()
+        course = Course.objects.first().id
+        c = Client()
+        c.force_login(user)
+        #checkform = AppointmentForm()
+        form = AppointmentForm(data = {'trainer': tr ,'date':'2021-11-12','timeslot':'0','customer':user})
+        #checkform = AppointmentForm(form_data)
+        response = c.get(reverse('Courses:timeslot' ,args=(course,)))
+        self.assertEqual(form.is_valid(), True)
+        self.assertEqual(response.status_code , 200)

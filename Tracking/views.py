@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse 
 from Users.models import *
 from .models import *
+from django.contrib.auth import authenticate,login, logout
 
 
 # Create your views here.

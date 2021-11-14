@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    <title>course info</title>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+        <div class="main-body">
+            <style>
+                a:hover {
+                    background-color: rgb(231, 231, 231);
+                    color: black;
+                }
+
+                .previous {
+                    background-color: #f1f1f1;
+                    color: black;
+                }
+            </style>
+            <a href="#" onclick=goBack() class="previous">&laquo; Previous</a>
+
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+            <!-- Breadcrumb -->
+
+            <!-- /Breadcrumb -->
+
+            <div class="row gutters-sm">
+
+                <div class="col-md-12 mb-3">
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <h1>DAY PROGRAM : {{id}}
+
+                                {% if status_day %}
+                                <svg width="50px" height="50px" viewBox="-81 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <title>i-tick</title>
+                                    <path d="M64 261L96 229 149 282 250 160 286 192 153 350 64 261Z" />
+                                </svg>
+                                {% else %}
+                                <svg width="40px" height="40px" viewBox="-28 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <title>cancel</title>
+                                    <path
+                                        d="M64 388L196 256 64 124 96 92 228 224 360 92 392 124 260 256 392 388 360 420 228 288 96 420 64 388Z" />
+                                </svg>
+
+                                {% endif %}
+                            </h1>
+                            <hr>
+                            {% for x in workout %}
+
+                            <div class="row">
+                                <div class="col-sm-7 ">
+                                    <h2> {{x.exercise}} {{x.id}} </h2>
+                                </div>
+                                <div class="col-sm-3 text-secondary">
+
+
+                                    {% if x.status %}
+                                    <svg width="20px" height="20px" viewBox="-81 0 512 512"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <title>i-tick</title>
+                                        <path d="M64 261L96 229 149 282 250 160 286 192 153 350 64 261Z" />
+                                    </svg>
+                                    <a href="{% url 'Trainer:trackremove' x.id id %}" ;>Cancel</a>
+                                    {% else %}
+                                    <svg width="15px" height="15px" viewBox="-28 0 512 512"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <title>cancel</title>
+                                        <path
+                                            d="M64 388L196 256 64 124 96 92 228 224 360 92 392 124 260 256 392 388 360 420 228 288 96 420 64 388Z" />
+                                    </svg>
+
+                                    <a href="{% url 'Trainer:trackapprove' x.id id %}" ;>Finish</a>
+                                    <a href="{% url 'Trainer:deleteworkout' x.id id %}" ;>remove this</a>
+                                    {% endif %}
+
+                                </div>
+
+
+
+                            </div>
+
+                            reps : {{x.reps}}
+                            sets :{{x.sets}}
+                            <hr>
+                            {% empty %}
+                            <h4>
+                                <small><b>
+                                        This student dont have any workout You should add some workout</b>
+                                </small>
+                                </h1>
+                                {% endfor %}
+
+                                <large>
+                                    <b>
+                                        ADD workout
+                                    </b>
+                                </large>
+                                <form method="POST" action="{% url 'Trainer:addworkout' id %} " class="workout-form"
+                                    id="addworkout">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+
+
+                                </form>
+                                <button type="submit" form="addworkout" value="Submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <large>
+                                Comment
+                            </large>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
