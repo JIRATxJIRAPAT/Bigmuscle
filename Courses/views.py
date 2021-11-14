@@ -165,7 +165,7 @@ def new_appointment(request, id):
             return HttpResponseRedirect(reverse("home:index"))
     else:
         form = AppointmentForm()
-    return render(request, 'Courses/timeselect.html', {'form': form})
+    return render(request, 'courses/timeselect.html', {'form': form})
 
 
 def slidenext(request, course_id, count_tr):

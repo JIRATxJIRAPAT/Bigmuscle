@@ -221,8 +221,8 @@ def edittrack(request, customer_id):
             check_context = 0
         else:
             check_context = 1
-        return render(request, "Trainer/customer_edittrack.html", {"check_context": check_context, "programlist": select_program, "customer_id": customer_id, })
-    return render(request, "Trainer/customer_edittrack.html", {"check_context": check_context, })
+        return render(request, "trainer/customer_edittrack.html", {"check_context": check_context, "programlist": select_program, "customer_id": customer_id, })
+    return render(request, "trainer/customer_edittrack.html", {"check_context": check_context, })
 
 
 def addprogram(request, customer_id):
