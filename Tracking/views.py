@@ -5,7 +5,7 @@ from Users.models import *
 from .models import *
 
 
-# Create uwu your views here.
+# Create your views here.
 
 def index(request):
     if not request.user.is_authenticated:

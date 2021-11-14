@@ -322,11 +322,11 @@
                                                 </tr>
                                                 <tr>
                                                   <th scope="row">3</th>
-                                                  <td>{{request.user.customer.track_customer}}</td>
+                                                  <td>{{request.user.customer.track_customer.day_program.status}}</td>
                                                   
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">3</th>
+                                                    <th scope="row">4</th>
                                                     <td >Larry the Bird</td>
                                                     
                                                   </tr>
@@ -344,7 +344,8 @@
                     </div>
 
 
-
+                    <a class="btn btn-success" href="{% url 'Users:dd' %}" >get link</a> <h5 style="background-color: #fff;">{{link}}</h5>
+                    <a class="btn btn-danger" href="{% url 'Users:userprofile' %}" >close</a>
                 </div>
             </div>
 

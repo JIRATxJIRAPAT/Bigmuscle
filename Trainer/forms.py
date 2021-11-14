@@ -20,7 +20,10 @@ class TrainerForm(ModelForm):
         fields = ['profile_pic', ]
 
 
-class VideocallForm(ModelForm):
-    class Meta:
-        model = Trainer
-        fields = ['videocall_link',]
+class VideocallForm(forms.Form):
+    link = forms.CharField()
+    
+    def clean_link(self):
+        data = self.cleaned_data['link']
+        return data
+        
