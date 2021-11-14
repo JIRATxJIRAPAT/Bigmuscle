@@ -14,7 +14,6 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 
-
 def index(request):
 
     if not request.user.is_authenticated:
@@ -74,6 +73,7 @@ def index(request):
                        'program': cus_tracks_program, "workout":  cus_tracks_objective, "program_check": check_program_none,
                        }
         return render(request, "users/userprofile.html", context)
+
 
 
 def login_view(request):
