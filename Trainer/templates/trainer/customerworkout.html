@@ -109,12 +109,13 @@
                                 </small>
                                 </h1>
                                 {% endfor %}
-
+                                <hr>
                                 <large>
                                     <b>
                                         ADD workout
                                     </b>
                                 </large>
+                                <hr>
                                 <form method="POST" action="{% url 'Trainer:addworkout' id %} " class="workout-form"
                                     id="addworkout">
                                     {% csrf_token %}
