@@ -32,6 +32,7 @@ class Program(models.Model):
         return f"day {self.day}"
 
 class Tracks(models.Model):
+    start_date = models.DateField(auto_now_add=True, blank=True)
     day_program = models.ManyToManyField(Program, blank=True,related_name="daily")
     track_trainer = models.ForeignKey('Trainer.Trainer',related_name="trainer",on_delete=models.SET_NULL,blank=True,null=True)
     all_program_status = models.BooleanField(default= False)

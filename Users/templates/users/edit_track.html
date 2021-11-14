@@ -143,12 +143,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-7 ">
-                                    <div class="col-md-3">
+                                    <div class="col-md-12">
                                         {% for i in programlist %}
 
 
 
-                                        <small>Day ID : {{i.day}} </small>
+                                        <small>Day Program :</small><br>
+                                        <small>start:{{i.start_date}}</small><br>
+                                        <small>end:{{i.end_date}}</small>
                                         {% if i.status %}
                                         <svg width="20px" height="20px" viewBox="-81 0 512 512"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -167,7 +169,7 @@
                                         {% endif %}
 
                                         <small> <a href="{% url 'Users:show_program'  i.id %}">Check</a></small>
-                                        <small> <a href="{% url 'Users:remove_program'  i.id %}">Check</a></small>
+                                        <small> <a href="{% url 'Users:remove_program'  i.id %}">Remove</a></small>
                                         <p></p>
                                         {% endfor %}
                                     </div>
