@@ -160,7 +160,7 @@ def add_link(request):
             tr.videocall_link = form.cleaned_data['link']
             tr.save()
             return HttpResponseRedirect(reverse("Trainer:index"))
-    return render(request, "trainer/trainerProfile.html",{'form1':form})
+    return render(request, "trainer/trainerProfile.html", {'form1': form})
 
 
 def show_program(request, id, customer_id):
@@ -221,8 +221,8 @@ def edittrack(request, customer_id):
             check_context = 0
         else:
             check_context = 1
-        return render(request, "Trainer/customer_edittrack.html", {"check_context": check_context, "programlist": select_program, "customer_id": customer_id, })
-    return render(request, "Trainer/customer_edittrack.html", {"check_context": check_context, })
+        return render(request, "trainer/customer_edittrack.html", {"check_context": check_context, "programlist": select_program, "customer_id": customer_id, })
+    return render(request, "trainer/customer_edittrack.html", {"check_context": check_context, })
 
 
 def addprogram(request, customer_id):
@@ -234,9 +234,9 @@ def addprogram(request, customer_id):
         select_tracks = Tracks.objects.filter(id=select_track.id)
 
         count_day = request.POST["day_id"]
-        
-        select_add = Program.objects.create( day=count_day)
-        print(select_add,"555")
+        x = datetime.datetime.now()
+        select_add = Program.objects.create(
+            end_date=x, start_date=x, day=count_day)
         select_track.day_program.add(select_add)
     return HttpResponseRedirect(reverse("Trainer:edittrack", args=(customer_id,)))
 
