@@ -28,7 +28,8 @@ class Program(models.Model):
     objective = models.ManyToManyField(Workout,related_name="workout")
     day = models.IntegerField(default=0)
     status = models.BooleanField(default=False)
-    def __str__(self):
+    enable_check = models.BooleanField(default=True)
+    def str(self):
         return f"day {self.day}"
 
 class Tracks(models.Model):

@@ -1,6 +1,6 @@
 from datetime import date
 from django.contrib.auth.forms import UsernameField
-from django.test import TestCase,Client, client
+from django.test import TestCase,Client,SimpleTestCase,TransactionTestCase
 from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -8,6 +8,8 @@ from django.shortcuts import render
 from django.contrib.auth.hashers import make_password
 from Trainer.models import Trainer
 from Users.models import *
+from News.forms import CreateNewsForm
+from News.models import *
 
 
 class AdministratorTestCase(TestCase):
@@ -114,3 +116,50 @@ class AdministratorTestCase(TestCase):
         c.force_login(user)
         response = c.get(reverse("administrator:profile"))
         self.assertEqual(response.status_code , 200)
+
+
+class TestForm(TransactionTestCase):
+    
+    def setUp(self):
+        password = make_password('abc12345')
+        _user = User.objects.create(username = 'abc' , email='abc@example.com')
+        _user.set_password(password)
+        
+        _user.is_staff = True
+        _user.is_superuser = True
+        
+        _user.save()
+        user1 = User.objects.create(username = "user1" , password = "1234" , email = "user2@example.com")
+
+    def test_create_news_form_valid(self):
+        user = User.objects.get(username = "abc")
+        c = Client()
+        c.force_login(user)
+        
+        form = CreateNewsForm(data={
+            'title':"สุขภาพดี",
+            'context':"ข้อมูล",
+            'ps': "written by",
+            'pic1':None,
+            'pic2':None,
+            'pic3':None,
+            'pic4':None,
+        })
+        
+        response = c.post(reverse("administrator:create_news"))
+        form.save()
+        self.assertTrue(form.is_valid())
+        self.assertTrue(response.status_code , 302)
+
+    """
+        if form.is_valid():
+            form.save()
+            self.assertTrue(News.objects.filter(title='สุขภาพดี').exists())
+        """
+    def test_non_admin_create_news_view(self):
+        user = User.objects.get(username = "user1")
+        c = Client()
+        c.force_login(user)
+        
+        response = c.get(reverse("administrator:create_news"))
+        self.assertTrue(response.status_code , 302)

@@ -1,4 +1,4 @@
-from django.test import TestCase,Client
+from django.test import TestCase,Client,TransactionTestCase
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -85,4 +85,32 @@ class CoursesViewTestCase(TestCase):
         self.assertEqual(response.status_code , 302)
         
     
+class TestForm(TransactionTestCase):
     
+    def setUp(self):
+        password = make_password('1234')
+        user1 = User.objects.create(username = "user1" , password = password , email = "user1@example.com")
+        x = Customer.objects.create(user=user1,owned = None)
+        tr1 = User.objects.create(username = "user2" , password = password , email = "user2@example.com")
+        trainer = Trainer.objects.create(user = tr1 , age=30,gender='male',bio="thai",specialist="cardio",tel="0617349815",approve=True)
+        Course.objects.create(name="subj1",info="info")
+        subj1 = Course.objects.first()
+        subj1.teach.add(trainer)
+
+    def test_appointment_form_valid(self):
+        user = User.objects.get(username = "user1")
+        c = Client()
+        c.force_login(user)
+        tr = Trainer.objects.first()
+        course = Course.objects.first().id
+        response = c.post(reverse("Courses:timeslot",args=(course,)))
+        form = AppointmentForm(data={
+            'trainer': tr, 
+            'date': "2021-11-19", 
+            'timeslot':3, 
+            'customer':user,
+        })
+        form.save()
+        
+        self.assertTrue(form.is_valid())
+        self.assertTrue(response.status_code , 302)

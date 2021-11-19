@@ -234,9 +234,12 @@ def addprogram(request, customer_id):
         select_tracks = Tracks.objects.filter(id=select_track.id)
 
         count_day = request.POST["day_id"]
+        track_start = select_track.start_date
+        start = track_start + datetime.timedelta(days=int(count_day))
+        end = track_start + datetime.timedelta(days=int(count_day)+1)
         x = datetime.datetime.now()
         select_add = Program.objects.create(
-            end_date=x, start_date=x, day=count_day)
+            end_date=end, start_date=start, day=count_day)
         select_track.day_program.add(select_add)
     return HttpResponseRedirect(reverse("Trainer:edittrack", args=(customer_id,)))
 
