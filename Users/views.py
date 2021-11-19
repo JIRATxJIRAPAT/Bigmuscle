@@ -9,7 +9,7 @@ from .forms import CreateUserForm, CustomerForm, WorkoutForm,ReportForm
 from .models import Customer
 from Courses.models import Appointment
 from Tracking.models import *
-import datetime
+import datetime 
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -36,7 +36,7 @@ def index(request):
             cus_tracks_program = "None"
             cus_tracks_objective = "None"
             check_program_none = 0
-
+            check_workout = "None"
             if tr is not None:
                 tr_name = tr.user
                 cus_track_join = get_object_or_404(
@@ -47,14 +47,28 @@ def index(request):
                         Tracks, id=cus_track_join.id).day_program.all()
 
                     check_day_program_length = len(cus_tracks_program)
+
+                    thisday = datetime.datetime.now()
+                    print(f"thisday: {thisday}")
+                    
+                    temp = []
+
                     for i in cus_tracks_program:
+                        check = date_compare(i.end_date)
+                        if not check:
+                            i.enable_check = False
+                        print(i.end_date)
+                        print(i.enable_check)
                         cus_tracks_objective = get_object_or_404(
                             Program, id=i.id).objective.all()
-
+                        print("cus")
+                        print(cus_tracks_program)
                         check_workout_length = len(cus_tracks_objective)
                         check_workout_finish = 0
+                        workout = [i]
                         check_workout = []
                         for x in cus_tracks_objective:
+                            workout.append(x)
                             if x.status:
                                 check_workout_finish += 1
 
@@ -62,7 +76,9 @@ def index(request):
                             check_workout.append(0)
                         else:
                             check_workout.append(1)
-
+                        
+                        temp.append(workout)
+                    #print(temp)
             if request.method == 'POST':
                 form = CustomerForm(
                     request.POST, request.FILES, instance=Customer1)
@@ -70,7 +86,9 @@ def index(request):
                     form.save()
             context = {'form': form,
                        'trainer': tr_name,
-                       'program': cus_tracks_program, "workout":  cus_tracks_objective, "program_check": check_program_none,
+                       'program': cus_tracks_program, "workout":  temp,
+                       "program_check": check_program_none,
+                       "check_workout": check_workout,
                        }
         return render(request, "users/userprofile.html", context)
 
@@ -237,3 +255,25 @@ def videocall_noti(request):
     y = Trainer.objects.get(id=user)
     z = y.videocall_link
     return render(request, "users/userprofile.html", {'link':z})
+
+
+def date_compare(d):
+    today = datetime.datetime.now()
+    thisday = datetime.date(today.year, today.month, today.day)
+    end = datetime.date(d.year, d.month, d.day)
+
+
+    a = today.replace(hour = int(today.hour), minute = int(today.minute))
+    b = today.replace(hour = int(d.hour), minute = int(d.minute))
+
+    print(f"today:{thisday}")
+    print(f"end: {end}")
+    print(thisday > end)
+    print(a <= b)
+    
+    if thisday > end:
+        return False
+    elif a > b and thisday > end:
+        return False
+    else:
+        return True

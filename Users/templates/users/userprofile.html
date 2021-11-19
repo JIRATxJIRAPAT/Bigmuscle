@@ -254,17 +254,18 @@
 
                                     <small>NO</small>
                                     {%endif%}
-
-
-
+                                    
+                                    
+                                    
                                     {% if program_check %}
                                     {% for i in program %}
 
                                     <h6>
 
                                     </h6>
-                                    <small>Program id: {{i.id}} start:{{i.start_date}} end:{{i.end_date}}</small>
-                                    <hr>
+                                    <small>program</small>
+                                    
+                                    
                                     {% if i.status %}
                                     <svg width="20px" height="20px" viewBox="-81 0 512 512"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -281,10 +282,14 @@
                                     </svg>
 
                                     {% endif %}
+                                    {% if i.enable_check %}
                                     <small>
                                         <a href="{% url 'Users:show_program' i.id %}">check</a></small>
-
-
+                                        {% endif %}
+                                        <br>
+                                    <small>start:{{i.start_date}} </small><br>
+                                    <small>end:{{i.end_date}}</small>
+                                    <hr>
                                     {% endfor %}
 
 
@@ -293,7 +298,7 @@
                                         you didnt select course
                                     </small>
                                     {% endif %}
-
+                                    
                             </div>
                         </div>
                     </div>

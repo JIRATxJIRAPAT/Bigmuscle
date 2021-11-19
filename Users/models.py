@@ -18,6 +18,7 @@ class Customer(models.Model):
     track_customer = models.OneToOneField(
         'Tracking.Tracks', related_name="tracks_owner", on_delete=models.SET_NULL, null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True, default="user_default_pic.jfif")
+    last_login = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
         return f"{self.user} {self.id}"

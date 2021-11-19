@@ -1,5 +1,5 @@
 {% extends "home/layout.html" %}
-      
+{% load static %}
       {% block body %}
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -9,13 +9,13 @@
         </div>
         <div class="carousel-inner" role="listbox" style=" width:100%; height: 500px !important;">
           <div class="carousel-item active">
-            <img src="../static/images/slide1.jpg" class="d-block w-100" alt="...">
+            <img src="images/slide1.jpg" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="../static/images/slide3.jpg" class="d-block w-100" alt="...">
+            <img src="images/slide3.jpg" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="../static/images/slide4.jpg" class="d-block w-100" alt="...">
+            <img src="images/slide4.jpg" class="d-block w-100" alt="...">
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -43,7 +43,8 @@
                 </div>
                 <div class="col-lg-6 py-3">
                   <div class="about-img">
-                    <img src="../static/images/about.jpg" alt="">
+                    
+                    <img src="{% static 'images/about.jpg' %}" alt="">
                   </div>
                 </div>
               </div>
@@ -70,7 +71,7 @@
                     </div>
                     <div class="body">
                       <div class="post-title"><a >กินเจ64 กินอย่างไรให้ถูกหลัก</a></div>
-                      <div><img src="static/assets/img/bg_image_1.jpg" alt="" width="200" height="150"></div>
+                      <div><img src="{% static 'assets/img/bg_image_2.jpg' %}" alt="" width="200" height="150"></div>
                       <div><a>เริ่มแล้วกับเทศกาล "กินเจ 2564" หลายคนเริ่มปรับเปลี่ยนเมนูจากอาหารปกติ มากิน "อาหารเจ" 
                       เพื่อเป็นการ "ล้างท้อง" ก่อนที่จะเข้าสู่ประเพณีกินเจ 
                       เต็มรูปแบบในวันพุธ 6 ตุลาคม 2564...</a></div>
@@ -91,7 +92,7 @@
                     </div>
                     <div class="body">
                       <div class="post-title"><a >เฝ้าระวังโรคและภัยสุขภาพ ช่วงฤดูหนาว</a></div>
-                      <div><img src="static/assets/img/bg_image_1.jpg" alt="" width="200" height="150"></div>
+                      <div><img src="{% static 'assets/img/bg_image_3.jpg' %}" alt="" width="200" height="150"></div>
                       <div><a>เริ่มเข้าสู่ช่วงปลายฝนต้นหนาว จึงได้มีการออกประกาศป้องกันโรคและภัยสุขภาพในช่วงฤดูหนาวปีนี้
                       เน้นดูแลสุขภาพและป้องกันตนเองจาก 4 โรคติดต่อ และ 1 ภัยสุขภาพที่สำคัญ เพื่อป้องกันควบคุมการแพร่ระบาดของโรคต่างๆ
                       ลดการเจ็บป่วยและเสียชีวิต...</a></div>
@@ -112,7 +113,7 @@
                     </div>
                     <div class="body">
                       <div class="post-title"><a href="blog-single.html">วิธีปฐมพยาบาล หากเกิดอาการบาดเจ็บ สำหรับนักวิ่ง นักออกกำลังกาย</a></div>
-                      <div><img src="static/assets/img/bg_image_1.jpg" alt="" width="200" height="150"></div>
+                      <div><img src="{% static 'assets/img/bg_image_3.jpg' %}" alt="" width="200" height="150"></div>
                       <div class="post-excerpt">สำหรับนักวิ่ง นักปั่น รวมถึงผู้รักการออกกำลังกาย ที่กำลังสับสนกันอยู่ หากเกิดอาการบาดเจ็บขึ้นมา เช่น บริเวณกล้ามเนื้อ 
                       เส้นเอ็น หรือมีการบวมช้ำ ระหว่างการวิ่ง การปั่น หรือออกกำลังกายชนิดต่างๆ เราๆ ท่านๆ ควรจะปฐมพยาบาล เพื่อบรรเทาอาการนั้นๆด้วยวิธีการใด 
                       ระหว่างการประคบเย็น หรือประคบร้อน...</div>
@@ -131,9 +132,10 @@
                         <a href="#" class="post-date">10 Apr 2021</a>
                       </div>
                     </div>
+                    
                     <div class="body">
                       <div class="post-title"><a href="blog-single.html">หาแรงจูงใจใหม่ในการออกกำลังกาย</a></div>
-                      <div><img src="static/assets/img/bg_image_1.jpg" alt="" width="200" height="150"></div>
+                      <div><img src="{% static 'assets/img/bg_image_1.jpg' %}" alt="" width="200" height="150"></div>
                       <div class="post-excerpt">บางคนคิดว่าการวิ่งออกกำลังกายมันเป็นกิจกรรม ที่ (อาจจะ) 
                       ดูน่าเบื่อสักหน่อยกับการใส่รองเท้าและออกไปวิ่ง ถ้าใครคิดแบบนั้น ลองมาเพิ่มสีสันการวิ่ง ด้วย 8 ปัจจัยนี้ 
                       ลองดูไหม…จะทำให้การวิ่งในความคิดของคุณเปลี่ยนไป อาจจะมีอะไรสนุกๆกับการออกกำลังกายมากขึ้น 
@@ -156,27 +158,7 @@
 
           
 
-          <div class="page-section">
-            <div class="container-fluid">
-              <div class="row row-cols-md-3 row-cols-lg-5 justify-content-center text-center">
-                <div class="py-3 px-5">
-                  <img src="../assets/img/clients/airbnb.png" alt="">
-                </div>
-                <div class="py-3 px-5">
-                  <img src="../assets/img/clients/google.png" alt="">
-                </div>
-                <div class="py-3 px-5">
-                  <img src="../assets/img/clients/mailchimp.png" alt="">
-                </div>
-                <div class="py-3 px-5">
-                  <img src="../assets/img/clients/paypal.png" alt="">
-                </div>
-                <div class="py-3 px-5">
-                  <img src="../assets/img/clients/stripe.png" alt="">
-                </div>
-              </div>
-            </div> <!-- .container-fluid -->
-          </div> <!-- .page-section -->
+        
 
         </main>
         {% endblock %}

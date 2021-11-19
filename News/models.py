@@ -1,6 +1,4 @@
 from django.db import models
-from django.utils.text import slugify
-from django.urls import reverse
 
 # Create your models here.
 
@@ -16,5 +14,5 @@ class News(models.Model):
     pic4 = models.ImageField(null = True,blank = True,default="default-image.png")
 
     def __str__(self):
-        return self.title
+        return f"{self.title}"
 

@@ -20,14 +20,14 @@ class NewsViewTestCase(TestCase):
 
         c = Client()
         c.force_login(user)
-        response = c.get(reverse("News:listnews"))
+        response = c.get(reverse("News:news-list"))
         self.assertEqual(response.status_code , 200)
 
 
     def test_guest_user_can_view_News_page(self):
         c = Client()
-        response = c.get(reverse("News:listnews"))
-        self.assertEqual(response.status_code , 302)
+        response = c.get(reverse("News:news-list"))
+        self.assertEqual(response.status_code , 200)
 
 
     def test_valid_News_page(self):
@@ -41,7 +41,7 @@ class NewsViewTestCase(TestCase):
     def test_news_list_View_context(self):
         s = News.objects.first()
         c = Client()
-        response = self.client.get(reverse('News:new_list'))
+        response = self.client.get(reverse('News:news-list'))
 
 
 
