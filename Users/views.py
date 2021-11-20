@@ -78,7 +78,7 @@ def index(request):
                             check_workout.append(1)
                         
                         temp.append(workout)
-                    #print(temp)
+                    
             if request.method == 'POST':
                 form = CustomerForm(
                     request.POST, request.FILES, instance=Customer1)
@@ -200,10 +200,10 @@ def addprogram(request):
         #x = datetime.datetime.now()
         track_start = select_track.start_date
         start_day = track_start + datetime.timedelta(days=int(count_day))
-        print("start")
-        print(track_start)
-        print("start_day")
-        print(start_day)
+        #print("start")
+        #print(track_start)
+        #print("start_day")
+        #print(start_day)
         select_add = Program.objects.create(
             end_date=start_day, start_date=start_day, day=count_day)
         select_track.day_program.add(select_add)
@@ -251,10 +251,12 @@ def report(request):
 
 def videocall_noti(request):
     x = Customer.objects.get(user=request.user)
+    ap = Appointment.objects.get(customer=x)
+    time = ap.timeslot
     user = x.trainer.id 
     y = Trainer.objects.get(id=user)
     z = y.videocall_link
-    return render(request, "users/userprofile.html", {'link':z})
+    return render(request, "users/getlink.html", {'link':z ,'time':time})
 
 
 def date_compare(d):

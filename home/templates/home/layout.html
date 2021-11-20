@@ -105,7 +105,7 @@
 
             {%if request.user.is_authenticated %}
             <li class="nav-item">
-              <a href="#" class="nav-link"> {{request.user.username}}</a>
+              <a class="nav-link"> {{request.user.username}}</a>
             </li>
             {% if request.user.customer %}
             {% if request.user.customer.profile_pic %}
@@ -132,11 +132,11 @@
                 <li><a class="dropdown-item" href="{% url 'Users:logout' %}">Log out</a></li>
                 {% else %}
                 <li><a class="dropdown-item" href="{% url 'Users:userprofile' %}">profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'Users:logout' %}">Log out</a></li>
+                <li><a class="dropdown-item" href="{% url 'Users:report' %}">report</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="{% url 'Users:report' %}">report</a></li>
+                <li><a class="dropdown-item" href="{% url 'Users:logout' %}">Log out</a></li>
               </ul>
             </li>
             {% endif %}

@@ -16,7 +16,6 @@ from django.contrib.auth import authenticate
 
 def course_page(request):
     all_course_name = "nothing here"
-    #print(all_course_name)
 
     if request.method == "POST":
         search_course = request.POST['search_course']
@@ -28,7 +27,7 @@ def course_page(request):
                 'course_list': course_list,
                 'all_course_name': all_course_name
             })
-        # split input to list
+
         search_course = search_course.upper()
 
         search_course = re.split(r'\s', search_course)
@@ -36,7 +35,7 @@ def course_page(request):
         course_filtered = []
 
         for j in search_course:
-            #print(j)
+            
             for i in course_list:
                 if re.search(j, i.name.upper()):
                     print(i.name.upper())
@@ -170,7 +169,6 @@ def new_appointment(request, id):
 
 
 def slidenext(request, course_id, count_tr):
-    #print(course_id, "aaaaaaaaaaaaaaa")
     count_tr += 1
     course = get_object_or_404(Course, pk=course_id)
     tr = get_object_or_404(Course, pk=course.id).teach.all()
@@ -232,8 +230,3 @@ def counttrselect(count_tr, tr):
     return count_tr
 
 
-""""
-def cancel_appointment(request,id):
-    select = Appointment.objects.filter(customer=request.user)
-    select.delete()
-    return HttpResponseRedirect(reverse("Courses:course_details", args=(id,)))"""
