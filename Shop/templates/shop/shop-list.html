@@ -1,0 +1,26 @@
+
+{% extends "home/layout.html" %}
+
+{% block body %}
+        <hr>
+        <div class="container">
+            <h1>สินค้าสุขภาพที่น่าสนใจ</h1>
+        <div class="col-md-15">
+            <div class="row">
+                {%  for post in all_posts %}
+              <div class="col-md-5">
+                <div class="cn-img">
+                  <div class="cn-title">
+                    <a href="{% url 'Shop:shop_detail'  post.id %}"><img src="{{ post.pic1.url }} "style="margin-top: 30px; width: 20%; height: 20%" /></a >
+                    <a href="{% url 'Shop:shop_detail'  post.id %}">{{post.title}}</a >
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+</div>
+<br>
+<br>
+<br>
+{% endblock %}

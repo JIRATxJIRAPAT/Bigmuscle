@@ -48,7 +48,7 @@
                                         <form method="POST" action="{% url 'Trainer:addprogram' customer_id %}"
                                             id="nameform">
                                             {% csrf_token %}
-                                            <label for="day_id">day_id:</label>
+                                            <label for="day_id">day:</label>
                                             <input type="number" required="required" id="day_id" name="day_id">
                                             <button type="submit" form="nameform" value="Submit">Submit</button>
                                             <br><br>
@@ -68,7 +68,7 @@
 
 
 
-                                            <small>Day ID : {{i.day}} {{i.id}} </small>
+                                            <small>Day : {{i.day}}  </small>
                                             {% if i.status %}
                                             <svg width="20px" height="20px" viewBox="-81 0 512 512"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -86,8 +86,6 @@
 
                                             {% endif %}
 
-                                            <small> <a
-                                                    href="{% url 'Trainer:show_program'  i.id customer_id %}">Check</a></small>
                                             <small> <a
                                                     href="{% url 'Trainer:remove_program'   i.id customer_id %}">Remove</a></small>
                                             <p></p>

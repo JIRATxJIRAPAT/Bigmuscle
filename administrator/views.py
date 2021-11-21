@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404
 from Trainer.models import Trainer
 from News.forms import CreateNewsForm
 from Users.models import *
+from Courses.forms import CreateCourseForm
+from Courses.models import *
 
 # job application
 def applicant_list(request):
@@ -63,3 +65,17 @@ def index(request):
     else:
         if request.user.is_superuser:
             return render(request, "administrator/adminprofile.html")
+
+#Courses
+def create_course(request):
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = CourseForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse("home:index"))
+        else:
+            form = CreateCourseForm()
+        return render(request, 'administrator/create_course.html', {'form': form})
+    else:
+        return HttpResponseRedirect(reverse("home:index"))

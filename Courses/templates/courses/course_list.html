@@ -54,6 +54,14 @@
               <div class="cn-title">
                 <a href="{% url 'Courses:course_details'  x.id %}">{{ x.name}}</a>
               </div>
+              {% if request.user.is_superuser %}
+              <div class="cn-title">
+                <a href="{% url 'Courses:course_delete'  x.id %}">delete</a>
+              </div>
+              <div class="cn-title">
+                <a href="{% url 'Courses:editcourse'  x.id %}">edit</a>
+              </div>
+              {%endif%}
             </div>
           </div>
           {% endfor %}

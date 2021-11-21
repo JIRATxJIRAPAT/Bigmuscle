@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'about', 'News', 'feature',
     'django_cleanup.apps.CleanupConfig',
     'Tracking','Trainer','administrator','social','crispy_forms',
+    'Shop',
 ]
 
 MIDDLEWARE = [

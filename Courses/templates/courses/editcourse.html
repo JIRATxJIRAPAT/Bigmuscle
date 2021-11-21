@@ -40,12 +40,19 @@
                     </div>
 
                     <div class="fieldWrapper">
-                        {{course_details.name}} {{form.name}}
-                        {{course_details.info}} {{form.info}}
-                        {{course_details.teach}} {{form.teach}}
-                        {{course_details.day}} {{form.day}}
-                        {{course_details.pic}} {{form.pic}}
-                        
+                        <section id="form-wrapper">
+                            <form method="POST" class="course-form" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{course_details.name}} {{form.name}}
+                                {{course_details.info}} {{form.info}}
+                                {{course_details.teach}} {{form.teach}}
+                                {{course_details.day}} {{form.days}}
+                                {{course_details.pic}} {{form.pic}}
+                                <button type="submit" class="btn btn-primary">Save</button>
+
+
+                            </form>
+                        </section>
                     </div>
                 </div>
             </div>

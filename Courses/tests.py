@@ -20,7 +20,7 @@ class CoursesViewTestCase(TestCase):
         subj1 = Course.objects.first()
         subj1.teach.add(trainer)
         self.select_trainer = reverse('Courses:select',args=[subj1.id,])
-        print(x.owned)
+        
 
         
 
