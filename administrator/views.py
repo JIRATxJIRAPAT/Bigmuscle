@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from Trainer.models import Trainer
 from News.forms import CreateNewsForm
 from Users.models import *
-from Courses.forms import CreateCourseForm
+from Courses.forms import *
 from Courses.models import *
 
 # job application
