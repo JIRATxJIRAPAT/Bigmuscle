@@ -13,6 +13,9 @@ from Users.models import *
 from Tracking.models import *
 from Users.forms import *
 import datetime
+from social.models import *
+from social.forms import *
+from django.views import View
 # Create your views here.
 
 
@@ -113,15 +116,29 @@ def customerTrack(request, id):
     customer_join = get_object_or_404(Customer, pk=id).track_customer
     customer_track = get_object_or_404(Tracks, pk=customer_join.id)
     customer_program_day = customer_track.day_program.all()
-
+    posts = customer.my_post.all()
+    postform = PostForm()
     for i in customer_program_day:
         print(i.id)
+    if request.method == "POST":
+        print("reachhere")
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.author = request.user
+            new_post.for_author = customer
+            new_post.save()
+
     return render(request, "trainer/customerTrack.html", {
         "customer": customer,
         "track": customer_join,
         "program": customer_program_day,
+        "posts":posts,
+        "form":postform,
 
-    })
+    }
+    )
 
 
 def program_customer(request, id):
@@ -206,14 +223,14 @@ def track_remove(request, id, idprogram):
 
 
 def edittrack(request, customer_id):
-    print("ddddddd")
+    
     select_track = get_object_or_404(
         Customer, id=customer_id).track_customer
     check_context = 0
     if select_track is not None:
         select_program = get_object_or_404(
             Tracks, id=select_track.id).day_program.all()
-        print("ddd")
+        
         check_empty = (len(select_program))
         print(check_empty)
 
@@ -231,14 +248,20 @@ def addprogram(request, customer_id):
         print(customer_id, "aaaaaa")
         select_track = get_object_or_404(
             Customer, id=customer_id).track_customer
-        select_tracks = Tracks.objects.filter(id=select_track.id)
+        select_tracks = Tracks.objects.get(id=select_track.id).day_program.all()
 
         count_day = request.POST["day_id"]
         track_start = select_track.start_date
         start = track_start + datetime.timedelta(days=int(count_day))
         end = track_start + datetime.timedelta(days=int(count_day)+1)
         x = datetime.datetime.now()
-        select_add = Program.objects.create(
+        program_exist = False
+        for i in select_tracks:
+            print(i.start_date.day)
+            if (i.start_date.day == start.day) and (i.start_date.month == start.month) and (i.start_date.year == start.year):
+                program_exist = True
+        if  not program_exist:
+            select_add = Program.objects.create(
             end_date=end, start_date=start, day=count_day)
         select_track.day_program.add(select_add)
     return HttpResponseRedirect(reverse("Trainer:edittrack", args=(customer_id,)))
@@ -267,3 +290,57 @@ def deleteworkout(request, id, idprogram):
     val = Workout.objects.get(id=id)
     val.delete()
     return HttpResponseRedirect(reverse("Trainer:program_customer", args=(idprogram,)))
+
+
+def sort_program(q):
+    sort_program = []
+    n = len(q)
+
+    for x in q:
+        sort_program.append(x)
+ 
+    for i in range(n-1):
+        for j in range(0, n-i-1):
+            a = sort_program[j].start_date
+            b = sort_program[j + 1].start_date
+            if a > b :
+                print(f"{a}>{b} = {a > b}")
+                sort_program[j], sort_program[j + 1] = sort_program[j + 1], sort_program[j]
+    return sort_program
+
+class PostDetailView(View):
+    def get(self, request, pk, *args, **kwargs):
+
+        post = Post.objects.get(pk=pk)
+        form = CommentForm()
+        comments = Comment.objects.filter(post=post).order_by('-created_on')
+        context = {
+            'post': post,
+            'form': form,
+            'comments': comments,
+
+
+        }
+
+        return render(request, 'social/post_detail.html', context)
+
+    def post(self, request,pk, *args, **kwargs):
+        post = Post.objects.get(pk=pk)
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.author = request.user
+            new_comment.post = post
+            new_comment.save()
+
+        comments = Comment.objects.filter(post=post).order_by('-created_on')
+
+        context = {
+            'post': post,
+            'form': form,
+            'comments': comments,
+
+        }
+
+        return render(request, 'social/post_detail.html', context)

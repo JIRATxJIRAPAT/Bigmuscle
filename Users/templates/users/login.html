@@ -12,16 +12,20 @@
 	<style>
 		body,
 		html {
+			background-image: url('/images/login.jpg');
+			background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
 			margin: 0;
 			padding: 0;
 			height: 100%;
-			background: #5e0779 !important;
+			
 		}
 		.user_card {
 			width: 350px;
 			margin-top: auto;
 			margin-bottom: auto;
-			background: #0aeb82;
+			background: #87c9f0;
 			position: relative;
 			display: flex;
 			justify-content: center;
@@ -45,7 +49,7 @@
 
 		.login_btn {
 			width: 100%;
-			background: #33ccff !important;
+			background: #f3badd !important;
 			color: white !important;
 		}
 		.login_btn:focus {
@@ -81,8 +85,6 @@
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
-
-
 					<h3 id="form-title">LOGIN</h3>
 				</div>
 				<div class="d-flex justify-content-center form_container">
@@ -105,7 +107,7 @@
 				 				<input class="btn login_btn" type="submit" value="Login">
 				   			</div>
 							<br>
-							<p style="text-align:center;margin-top: auto;"> <a href="{% url 'home:index' %}" class="btn btn-primary">home</a></p>
+							<p style="text-align:center;margin-top: auto;"> <a href="{% url 'home:index' %}" class="btn btn-danger">home</a></p>
 
 							{% if message %}
 							{{ message }}
@@ -114,9 +116,7 @@
 						</form>
 					
 				</div>
-                
-										
-                
+                									 
 				</div>
 			</div>
 		</div>

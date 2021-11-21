@@ -1,0 +1,63 @@
+{% extends "home/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<head>
+    <style>
+        .profile-pic-course {
+            width: 300px;
+            height: auto;
+            overflow: hidden;
+
+        }
+
+        #yourContainer {
+            margin-top: 30px;
+            width: 90%;
+            height: 60%;
+        }
+    </style>
+</head>
+{% if course_details %}
+
+<body>
+    <hr>
+    <div class=" container">
+        <div class="vg-page page-about" id="about">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col py-5">
+                        <div class="img-place col-md-12">
+                            {% if course_details.pic %}
+                            <div id="yourContainer">
+                                <img class="img-rounded" src="{{course_details.pic.url}}">
+                                {% else %}
+                                <img class="img-rounded" src='/static/images/trainer_default_pic.jpg'>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fieldWrapper">
+                        {{course_details.name}} {{form.name}}
+                        {{course_details.info}} {{form.info}}
+                        {{course_details.teach}} {{form.teach}}
+                        {{course_details.day}} {{form.day}}
+                        {{course_details.pic}} {{form.pic}}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {% endif %}
+
+
+
+    </p>
+</body>
+{% endblock %}

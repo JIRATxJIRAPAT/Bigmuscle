@@ -23,25 +23,25 @@ class Appointment(models.Model):
         unique_together = ('date', 'timeslot')
 
     TIMESLOT_LIST = (
-        (0, '04:00 – 05:30'),
-        (1, '06:00 – 07:30'),
-        (2, '08:00 – 09:30'),
-        (3, '10:00 – 11:30'),
-        (4, '13:00 – 14:30'),
-        (5, '15:00 – 16:30'),
-        (6, '17:00 – 18:30'),
-        (7, '19:00 – 20:30'),
-        (8, '21:00 – 22:30'),
-        (9, '23:00 – 01:30'),
+        ('04:00 – 05:30', '04:00 – 05:30'),
+        ('06:00 – 07:30', '06:00 – 07:30'),
+        ('08:00 – 09:30', '08:00 – 09:30'),
+        ('10:00 – 11:30', '10:00 – 11:30'),
+        ('13:00 – 14:30', '13:00 – 14:30'),
+        ('15:00 – 16:30', '15:00 – 16:30'),
+        ('17:00 – 18:30', '17:00 – 18:30'),
+        ('19:00 – 20:30', '19:00 – 20:30'),
+        ('21:00 – 22:30', '21:00 – 22:30'),
+        ('23:00 – 01:30', '23:00 – 01:30'),
     )
 
     trainer = models.ForeignKey("Trainer.Trainer",on_delete = models.CASCADE,null=True,blank=True)
     date = models.DateField(help_text="YYYY-MM-DD")
-    timeslot = models.IntegerField(choices=TIMESLOT_LIST)
+    timeslot = models.TextField(choices=TIMESLOT_LIST)
     customer = models.ForeignKey('Users.Customer',on_delete = models.CASCADE,null=True,blank=True,related_name='customer')
 
     def __str__(self):
-        return f'{self.trainer} /w {self.customer} time = {self.timeslot}'
+        return f"{self.trainer} w/ {self.customer}"
 
     @property
     def time(self):
