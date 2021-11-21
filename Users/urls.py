@@ -17,7 +17,7 @@ urlpatterns = [
     path("<int:id>/delete <int:idprogram>",
          views.deleteworkout, name="deleteworkout"),
     path('edittrack', views.edittrack, name="edittrack"),
-    path("addprogram", views.addprogram, name="addprogram"),
+    
     path("addworkout/<int:idprogram>", views.addworkout, name="addworkout"),
     path("report/",views.report,name="report"),
     path("showlink",views.videocall_noti,name="link")

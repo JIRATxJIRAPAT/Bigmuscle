@@ -11,14 +11,11 @@
               <div class="row">
                 <div class="col-lg-1">
                   <span class="icon-inside-input">
-                    <i
-                      class="fas fa-search fa-lg"
-                      style="
+                    <i class="fas fa-search fa-lg" style="
                         margin-left: 50px;
                         margin-top: 18px;
                         margin-left: auto;
-                      "
-                    >
+                      ">
                     </i>
                   </span>
                 </div>
@@ -29,21 +26,10 @@
                     <label for="your_name">search course </label>
                     <h3>{{all_course_name}}</h3>
 
-                    <input
-                      class="form-control append-icon"
-                      name="search_course"
-                      placeholder="ค้นหาหลักสูตร..."
-                      aria-label="Search"
-                      id="search_course"
-                      type="text"
-                    />
+                    <input class="form-control append-icon" name="search_course" placeholder="ค้นหาหลักสูตร..."
+                      aria-label="Search" id="search_course" type="text" />
 
-                    <button
-                      style="margin-left: 35%"
-                      type="submit"
-                      value="submit"
-                      class="btn btn-success btn-sm"
-                    >
+                    <button style="margin-left: 35%" type="submit" value="submit" class="btn btn-success btn-sm mt-2">
                       Submit
                     </button>
                   </form>
@@ -64,14 +50,9 @@
           {% for x in course_list %}
           <div class="col-md-4">
             <div class="cn-img">
-              <img
-                src="{{ x.pic.url }} "
-                style="margin-top: 30px; width: 90%; height: 60%"
-              />
+              <img src="{{ x.pic.url }} " style="margin-top: 30px; width: 90%; height: 60%" />
               <div class="cn-title">
-                <a href="{% url 'Courses:course_details'  x.id %}"
-                  >{{ x.name}}</a
-                >
+                <a href="{% url 'Courses:course_details'  x.id %}">{{ x.name}}</a>
               </div>
             </div>
           </div>
@@ -86,20 +67,11 @@
 <head>
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet" />
 
   <!-- CSS Libraries -->
-  <link
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
   <link href="lib/slick/slick.css" rel="stylesheet" />
   <link href="lib/slick/slick-theme.css" rel="stylesheet" />
 

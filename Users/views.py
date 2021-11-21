@@ -190,32 +190,6 @@ def edittrack(request):
     return render(request, "users/edit_track.html", {"check_context": check_context, })
 
 
-def addprogram(request):
-
-    if request.method == "POST":
-        select_track = get_object_or_404(
-            Customer, user=request.user).track_customer
-        select_tracks = Tracks.objects.get(id=select_track.id).day_program.all()
-        print(select_track)
-        count_day = request.POST["day_id"]
-        #x = datetime.datetime.now()
-        track_start = select_track.start_date
-        start_day = track_start + datetime.timedelta(days=int(count_day))
-        #print("start")
-        #print(track_start)
-        #print("start_day")
-        #print(start_day)
-        program_exist = False
-        for i in select_tracks:
-            print(i.start_date.day)
-            if (i.start_date.day == start_day.day) and (i.start_date.month == start_day.month) and (i.start_date.year == start_day.year):
-                program_exist = True
-        if  not program_exist:
-            select_add = Program.objects.create(end_date=start_day, start_date=start_day, day=count_day)
-            select_track.day_program.add(select_add)
-    return HttpResponseRedirect(reverse("Users:edittrack"))
-
-
 def remove_program(request, id_program):
     print(id_program)
     val = Program.objects.get(id=id_program)

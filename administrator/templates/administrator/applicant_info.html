@@ -2,22 +2,27 @@
 {% load static %}
 
 {% block body %}
-    
-    <div class="container">
-        <table class="table">
-    {% for mem in select_user %}
-        <div>{{ mem.user.first_name }} {{mem.user.last_name}} </div>
-        <img class='profile-pic' src='{{mem.profile_pic.url}}' width="200" height="200">
-        
-        <li>{{mem.bio}}</li>
-        <li>{{mem.tel}}</li>
-        <li>{{mem.gender}}</li>
-        <li>{{mem.specialist}}</li>
-        
-        <a href="{% url 'administrator:approve'  mem.id %}">approve</a>
-        <a href="{% url 'administrator:decline'  mem.id %}">decline</a>
-    {% endfor %}
-    
-     </table>  
+<hr>
+<div class="container">
+    <div class="card text-center">
+        <div class="card-body">
+            <table class="table">
+                {% for mem in select_user %}
+                <div>{{ mem.user.first_name }} {{mem.user.last_name}} </div>
+                <img class='profile-pic' src='{{mem.profile_pic.url}}' width="200" height="200">
+
+                <li>{{mem.bio}}</li>
+                <li>{{mem.tel}}</li>
+                <li>{{mem.gender}}</li>
+                <li>{{mem.specialist}}</li>
+
+                <small><a href="{% url 'administrator:approve'  mem.id %}">approve</a></small>
+                <small> <a href="{% url 'administrator:decline'  mem.id %}">decline</a></small>
+                {% endfor %}
+
+            </table>
+        </div>
     </div>
+</div>
+<hr>
 {% endblock %}

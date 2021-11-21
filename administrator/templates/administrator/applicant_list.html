@@ -2,14 +2,19 @@
 {% load static %}
 
 {% block body %}
-    <div class="container">
-        <h1>Job applicants</h1>
-    {% for mem in applicant %}
-        <li>
-        <a href="{% url 'administrator:applicant_info'  mem.id %}">{{ mem.user.first_name }} {{mem.user.last_name}} = {{mem.approve}} {{mem.id}}</a>
-        </li>
-    {% endfor %}
-    
-       
+<div class="container">
+    <div class="card text-center">
+        <div class="card-body">
+
+            <h1>Job applicants</h1>
+            {% for mem in applicant %}
+            <li>
+                <a href="{% url 'administrator:applicant_info'  mem.id %}">{{ mem.user.first_name }}
+                    {{mem.user.last_name}} = {{mem.approve}} {{mem.id}}</a>
+            </li>
+            {% endfor %}
+
+        </div>
     </div>
+</div>
 {% endblock %}
