@@ -10,3 +10,4 @@
 นายอิทธิพัฒน์ ปุระเทพ 6210612583
 
 [สาธิตการใช้งาน](https://youtu.be/O13yeYN4BJk)
+[heroku](https://takeitboii.herokuapp.com/)
