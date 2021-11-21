@@ -15,5 +15,6 @@ urlpatterns = [
     #path("<int:id>/apply/trainer/timeslot/cancel", views.cancel_appointment, name="cancel"),
     path("<int:course_id>/<int:count_tr>/next",views.slidenext, name="slidenext"),
     path("<int:course_id>/<int:count_tr>/back",views.slideback, name="slideback"),
+    path("<int:id>/editcourse", views.editcourse, name="editcourse"),
         
 ]

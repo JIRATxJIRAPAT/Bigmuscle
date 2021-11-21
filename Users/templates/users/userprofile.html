@@ -158,11 +158,34 @@
                                         <path fill-rule="evenodd"
                                             d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
                                     </svg>meeting /w trainer</h6>
-                                <span class="text-secondary"><a class="btn btn-success" href="{% url 'Users:link' %}" >get link</a> </span>
+                                    <span class="text-secondary"><a class="btn btn-success" href="{% url 'Users:link' %}" >get link</a> </span>
                             </li>
                         </ul>
                     </div>
+                    <div class="card mt-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+
+
+                                    <div class="col">
+                                        <a class="btn btn-primary " target="__blank"
+                                            href="{% url 'social:post-list' %}">
+                                            comment!</a>
+                                    </div>
+                                </div>
+                                <div class="row" style="overflow: scroll; width: auto; height:100px;">
+                                    <div class="col-lg-12 ">
+                                        <small>check comment</small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
                 <div class="col-md-8">
                     <div class="card mb-3">
                         <div class="card-body">
@@ -219,7 +242,8 @@
 
                                 {% if request.user.customer.owned %}
 
-                                <div class="col-sm-9 text-secondary">you have {{request.user.customer.owned.name}}</div>
+                                <div class="col-sm-9 text-secondary">you have
+                                    {{request.user.customer.owned.name}}</div>
 
                                 {% else %}
                                 <span>
@@ -254,9 +278,9 @@
 
                                     <small>NO</small>
                                     {%endif%}
-                                    
-                                    
-                                    
+
+
+
                                     {% if program_check %}
                                     {% for i in program %}
 
@@ -264,8 +288,8 @@
 
                                     </h6>
                                     <small>program</small>
-                                    
-                                    
+
+
                                     {% if i.status %}
                                     <svg width="20px" height="20px" viewBox="-81 0 512 512"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -285,8 +309,8 @@
                                     {% if i.enable_check %}
                                     <small>
                                         <a href="{% url 'Users:show_program' i.id %}">check</a></small>
-                                        {% endif %}
-                                        <br>
+                                    {% endif %}
+                                    <br>
                                     <small>start:{{i.start_date}} </small><br>
                                     <small>end:{{i.end_date}}</small>
                                     <hr>
@@ -298,46 +322,45 @@
                                         you didnt select course
                                     </small>
                                     {% endif %}
-                                    
+
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
-            
-                                <h6 class="d-flex align-items-center mb-3" ><i
-                                        class="material-icons text-info mr-2">Calender </i></h6>
-                                        
-                                        <table class="table table-bordered">
-                                            
-                                            <thead>
-                                                <tr>
-                                                  <th scope="col">date</th>
-                                                  <th scope="col">status</th>
-                                                </tr>
-                                              </thead>
-                                              <tbody>
-                                                {% if program_check %}
-                                                {% for i in program %}
-                                                <tr>
-                                                  <th scope="row">{{i.start_date}}</th>
-                                                {% if i.status == True %}
-                                                <td style="text-shadow: 1px 2px 2px #FFCC00;;">&#9989</td>
-                                                {% else %}
-                                                <td style="text-shadow: 1px 2px 2px #FFCC00;">&#9940</td>
-                                                {% endif %}
-                                                  
-                                                </tr>
-                                                {% empty %}
-                                                <small> no program</small>
-                                                
-                                                {% endfor %}
-                                                {% endif %} 
-                                              </tbody>
-                                            
-                                          </table>
-                                <small>Progress</small>
+
+                                <h6 class="d-flex align-items-center mb-3"><i
+                                        class="material-icons text-info mr-2">Calender
+                                    </i></h6>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">date</th>
+                                            <th scope="col">status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if program_check %}
+                                        {% for i in program %}
+                                        <tr>
+                                            <th scope="row">{{i.start_date}}</th>
+                                            {% if i.status == True %}
+                                            <td style="text-shadow: 1px 2px 2px #FFCC00;;">&#9989</td>
+                                            {% else %}
+                                            <td style="text-shadow: 1px 2px 2px #FFCC00;">&#9940</td>
+                                            {% endif %}
+
+                                        </tr>
+                                        {% empty %}
+                                        <small> no program</small>
+
+                                        {% endfor %}
+                                        {% endif %}
+                                    </tbody>
+
+                                </table>
+                                <small>progress</small>
                                 <div class="progress mb-3" style="height: 5px">
                                     <div class="progress-bar bg-primary" role="progressbar" style="width: 3%"
                                         aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
@@ -346,7 +369,8 @@
                         </div>
                     </div>
 
-                    
+
+                
                 </div>
             </div>
 

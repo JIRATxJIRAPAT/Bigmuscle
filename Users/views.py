@@ -78,7 +78,7 @@ def index(request):
                             check_workout.append(1)
                         
                         temp.append(workout)
-                    
+                    cus_tracks_program = sort_program(cus_tracks_program)
             if request.method == 'POST':
                 form = CustomerForm(
                     request.POST, request.FILES, instance=Customer1)
@@ -185,6 +185,7 @@ def edittrack(request):
             check_context = 0
         else:
             check_context = 1
+        select_program = sort_program(select_program)
         return render(request, "users/edit_track.html", {"check_context": check_context, "programlist": select_program})
     return render(request, "users/edit_track.html", {"check_context": check_context, })
 
@@ -194,8 +195,8 @@ def addprogram(request):
     if request.method == "POST":
         select_track = get_object_or_404(
             Customer, user=request.user).track_customer
-        select_tracks = Tracks.objects.filter(id=select_track.id)
-
+        select_tracks = Tracks.objects.get(id=select_track.id).day_program.all()
+        print(select_track)
         count_day = request.POST["day_id"]
         #x = datetime.datetime.now()
         track_start = select_track.start_date
@@ -204,9 +205,14 @@ def addprogram(request):
         #print(track_start)
         #print("start_day")
         #print(start_day)
-        select_add = Program.objects.create(
-            end_date=start_day, start_date=start_day, day=count_day)
-        select_track.day_program.add(select_add)
+        program_exist = False
+        for i in select_tracks:
+            print(i.start_date.day)
+            if (i.start_date.day == start_day.day) and (i.start_date.month == start_day.month) and (i.start_date.year == start_day.year):
+                program_exist = True
+        if  not program_exist:
+            select_add = Program.objects.create(end_date=start_day, start_date=start_day, day=count_day)
+            select_track.day_program.add(select_add)
     return HttpResponseRedirect(reverse("Users:edittrack"))
 
 
@@ -268,10 +274,10 @@ def date_compare(d):
     a = today.replace(hour = int(today.hour), minute = int(today.minute))
     b = today.replace(hour = int(d.hour), minute = int(d.minute))
 
-    print(f"today:{thisday}")
-    print(f"end: {end}")
-    print(thisday > end)
-    print(a <= b)
+    #print(f"today:{thisday}")
+    #print(f"end: {end}")
+    #print(thisday > end)
+    #print(a <= b)
     
     if thisday > end:
         return False
@@ -279,3 +285,20 @@ def date_compare(d):
         return False
     else:
         return True
+
+
+def sort_program(q):
+    sort_program = []
+    n = len(q)
+
+    for x in q:
+        sort_program.append(x)
+ 
+    for i in range(n-1):
+        for j in range(0, n-i-1):
+            a = sort_program[j].start_date
+            b = sort_program[j + 1].start_date
+            if a > b :
+                #print(f"{a}>{b} = {a > b}")
+                sort_program[j], sort_program[j + 1] = sort_program[j + 1], sort_program[j]
+    return sort_program
