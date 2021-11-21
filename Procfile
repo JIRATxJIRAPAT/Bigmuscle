@@ -1,1 +1,1 @@
-web: gunicorn takeitboii.wsgi
+web: gunicorn takeitboii.wsgi 
