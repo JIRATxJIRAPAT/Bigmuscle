@@ -23,6 +23,12 @@
                     <a href="{% url 'News:news-details'  post.id %}"><img src="{{ post.pic1.url }} "style="margin-top: 30px; width: 20%; height: 20%" /></a >
                     <a href="{% url 'News:news-details'  post.id %}">{{post.title}}</a >
                   </div>
+                  {% if request.user.is_superuser %}
+          <div class="cn-title">
+            <a href="{% url 'News:new_delete'  post.id %}">delete news &#x2716</a>
+          </div>
+
+          {%endif%}
                 </div>
               </div>
               {% endfor %}

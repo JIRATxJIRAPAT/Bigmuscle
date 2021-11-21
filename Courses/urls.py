@@ -16,5 +16,6 @@ urlpatterns = [
     path("<int:course_id>/<int:count_tr>/next",views.slidenext, name="slidenext"),
     path("<int:course_id>/<int:count_tr>/back",views.slideback, name="slideback"),
     path("<int:id>/editcourse", views.editcourse, name="editcourse"),
+    path("<int:id>/deletecourse", views.course_delete, name="course_delete"),
         
 ]

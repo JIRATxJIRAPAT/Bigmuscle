@@ -142,7 +142,7 @@
 
                             <div class="row">
                                 <div class="col-sm-7 ">
-                                    <h2> {{x.exercise}} {{x.id}} </h2>
+                                    <h2> {{x.exercise}} </h2>
                                 </div>
                                 <div class="col-sm-3 text-secondary">
 
@@ -163,7 +163,7 @@
                                     </svg>
 
                                     <a href="{% url 'Users:trackapprove' x.id id %}" ;>Finish</a>
-                                    <a href="{% url 'Users:deleteworkout' x.id id %}" ;>remove this</a>
+                                    
                                     {% endif %}
 
                                 </div>
@@ -176,27 +176,11 @@
                             sets :{{x.sets}}
 
                             {% endfor %}
-                            <form method="POST" action="{% url 'Users:addworkout' id %} " class="workout-form"
-                                id="addworkout">
-                                {% csrf_token %}
-                                {{ form.as_p }}
-
-
-                            </form>
-                            <button type="submit" form="addworkout" value="Submit">Submit</button>
+                            
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 mb-3">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <large>
-                                Comment
-                            </large>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
 
         </div>

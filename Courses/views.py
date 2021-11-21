@@ -30,6 +30,7 @@ def sort_course(c):
     return sort_course
 
 def course_page(request):
+
     if  request.user.is_authenticated:
         try:
             checkTr = Trainer.objects.get(user=request.user)
@@ -39,18 +40,16 @@ def course_page(request):
         if checkTr is not None:
             return HttpResponseRedirect(reverse("Trainer:trainer_course"))
 
-    all_course_name = "nothing here"
-
 
     if request.method == "POST":
         search_course = request.POST['search_course']
-        all_course_name = "i'm in"
+        
         course_list = Course.objects.all()
         if search_course == "\w":
 
             return render(request, 'courses/course_list.html', {
                 'course_list': course_list,
-                'all_course_name': all_course_name
+                
             })
         # split input to list
         search_course = search_course.upper()
@@ -66,7 +65,7 @@ def course_page(request):
                     print(i.name.upper())
                     course_filtered.append(i)
 
-        all_course_name = "done"
+        
         course_list = course_filtered
         course_list = sort_course(course_list)
     else:
@@ -74,11 +73,13 @@ def course_page(request):
         course_list = sort_course(course_list)
     return render(request, 'courses/course_list.html', {
         'course_list': course_list,
-        'all_course_name': all_course_name
+        
     })
 
 
 def show_course(request, id):
+    if request.user.is_superuser:
+        return HttpResponseRedirect(reverse("home:index"))
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
     else:
@@ -265,8 +266,23 @@ def counttrselect(count_tr, tr):
 
 
 def editcourse(request, id):
+    course_target = Course.objects.get(id=id)
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
+    if request.method == "POST":
+        
+        form_save = CourseForm(request.POST,request.FILES,instance=course_target)
+        if form_save.is_valid():
+            
+            edit = form_save.save()
     course_details = Course.objects.get(id=id)
     form = CourseForm()
     return render(request, 'courses/editcourse.html', {"course_details": course_details, "form": form})
+
+def course_delete(request,id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("Users:login"))
+    course_details = Course.objects.get(id=id)
+    course_details.delete()
+    return HttpResponseRedirect(reverse("Courses:course_list",))
