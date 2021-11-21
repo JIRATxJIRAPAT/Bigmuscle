@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 def index(request):
-
+    temp = []
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("Users:login"))
     else:
